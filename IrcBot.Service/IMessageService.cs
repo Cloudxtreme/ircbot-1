@@ -1,0 +1,8 @@
+﻿using IrcBot.Entities.Models;
+
+namespace IrcBot.Service
+{
+    public interface IMessageService : IService<Message>
+    {
+    }
+}

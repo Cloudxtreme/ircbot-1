@@ -2,9 +2,18 @@
 using System.Linq;
 using System.Text;
 
+using Microsoft.Practices.Unity;
+
 using Meebey.SmartIrc4net;
 
 using IrcBot.Client.Triggers;
+using IrcBot.Database.DataContext;
+using IrcBot.Database.Entity;
+using IrcBot.Database.Repositories;
+using IrcBot.Database.UnitOfWork;
+using IrcBot.Entities;
+using IrcBot.Entities.Models;
+using IrcBot.Service;
 
 namespace IrcBot.Client
 {
@@ -28,9 +37,21 @@ namespace IrcBot.Client
             _client.OnChannelMessage += ClientOnOnChannelMessage;
             _client.OnQueryMessage += ClientOnOnQueryMessage;
 
+            var container = new UnityContainer();
+
+            container
+                .RegisterType<IDataContextAsync, IrcBotContext>(new ContainerControlledLifetimeManager())
+                .RegisterType<IUnitOfWorkAsync, UnitOfWork>(new ContainerControlledLifetimeManager())
+                .RegisterType<IRepositoryAsync<Message>, Repository<Message>>()
+                .RegisterType<IRepositoryAsync<Point>, Repository<Point>>()
+                .RegisterType<IMessageService, MessageService>()
+                .RegisterType<IPointService, PointService>();
+
             _triggers = new Dictionary<string, ITrigger>
             {
-                { "!addpoint", new AddPointTrigger() }
+                { "!addpoint", new AddPointTrigger(container.Resolve<IUnitOfWorkAsync>(), container.Resolve<IPointService>()) },
+                { "!takepoint", new TakePointTrigger(container.Resolve<IUnitOfWorkAsync>(), container.Resolve<IPointService>()) },
+                { "!points", new PointsTrigger(container.Resolve<IPointService>()) }
             };
         }
 

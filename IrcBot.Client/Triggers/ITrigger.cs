@@ -1,4 +1,6 @@
-﻿using Meebey.SmartIrc4net;
+﻿using System.Threading.Tasks;
+
+using Meebey.SmartIrc4net;
 
 namespace IrcBot.Client.Triggers
 {

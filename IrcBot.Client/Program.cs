@@ -10,6 +10,8 @@ namespace IrcBot.Client
     {
         static void Main(string[] args)
         {
+            var ircBot = new IrcBot();
+            ircBot.Start();
         }
     }
 }

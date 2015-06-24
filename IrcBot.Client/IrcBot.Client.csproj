@@ -49,6 +49,8 @@
     <Compile Include="IrcBot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Triggers\AddPointTrigger.cs" />
+    <Compile Include="Triggers\ITrigger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

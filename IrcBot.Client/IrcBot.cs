@@ -1,7 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using Meebey.SmartIrc4net;
+
+using IrcBot.Client.Triggers;
 
 namespace IrcBot.Client
 {
@@ -10,6 +13,7 @@ namespace IrcBot.Client
         private const string ChannelName = "#cdnidle";
 
         private readonly IrcClient _client;
+        private readonly Dictionary<string, ITrigger> _triggers; 
 
         public IrcBot()
         {
@@ -23,6 +27,11 @@ namespace IrcBot.Client
             _client.OnErrorMessage += ClientOnOnErrorMessage;
             _client.OnChannelMessage += ClientOnOnChannelMessage;
             _client.OnQueryMessage += ClientOnOnQueryMessage;
+
+            _triggers = new Dictionary<string, ITrigger>
+            {
+                { "!addpoint", new AddPointTrigger() }
+            };
         }
 
         public void Start()
@@ -40,11 +49,22 @@ namespace IrcBot.Client
 
         private void ClientOnOnChannelMessage(object sender, IrcEventArgs ircEventArgs)
         {
+            var message = ircEventArgs.Data.Message;
 
+            if (!message.StartsWith("!"))
+            {
+                return;
+            }
+
+            var split = message.Split(new[] { ' ' });
+
+            if (_triggers.ContainsKey(split[0]))
+            {
+                _triggers[split[0]].Execute(_client, split.Skip(1).Take(split.Length - 1).ToArray());
+            }
         }
 
         private void ClientOnOnQueryMessage(object sender, IrcEventArgs ircEventArgs)
-        {
-        }
+        { }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -82,6 +83,11 @@ namespace IrcBot.Client
             if (_triggers.ContainsKey(split[0]))
             {
                 _triggers[split[0]].Execute(_client, split.Skip(1).Take(split.Length - 1).ToArray());
+            }
+            else if (split.Length == 1 && split[0].Equals("!help"))
+            {
+                _client.SendMessage(SendType.Message, ChannelName, String.Format("Commands: {0}",
+                    String.Join(", ", _triggers.Select(x => x.Key).ToArray())));
             }
         }
 

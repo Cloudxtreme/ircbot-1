@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 using Meebey.SmartIrc4net;
 
 using IrcBot.Database.Infrastructure;

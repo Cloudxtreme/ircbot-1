@@ -20,11 +20,11 @@ namespace IrcBot.Client.Triggers
             _pointService = pointService;
         }
 
-        public void Execute(IrcClient client, string[] parameters)
+        public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
-            if (parameters.Length != 1)
+            if (triggerArgs.Length != 1)
             {
-                client.SendMessage(SendType.Message, client.GetChannels()[0], "Syntax: !takepoint <nick>");
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !takepoint <nick>");
                 return;
             }
 
@@ -32,7 +32,7 @@ namespace IrcBot.Client.Triggers
 
             _pointService.Insert(new Point
             {
-                Nick = parameters[0],
+                Nick = triggerArgs[0],
                 Value = -1,
                 Created = utcNow,
                 Modified = utcNow,
@@ -41,8 +41,8 @@ namespace IrcBot.Client.Triggers
 
             _unitOfWork.SaveChanges();
 
-            client.SendMessage(SendType.Message, client.GetChannels()[0], String.Format(
-                "{0} has {1} points", parameters[0], _pointService.Count(parameters[0])));
+            client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
+                "{0} has {1} points", triggerArgs[0], _pointService.Count(triggerArgs[0])));
         }
     }
 }

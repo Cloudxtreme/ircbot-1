@@ -17,11 +17,11 @@ namespace IrcBot.Client.Triggers
             _pointService = pointService;
         }
 
-        public void Execute(IrcClient client, string[] parameters)
+        public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
-            if (parameters.Length != 0)
+            if (triggerArgs.Length != 0)
             {
-                client.SendMessage(SendType.Message, client.GetChannels()[0], "Syntax: !points");
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !points");
                 return;
             }
 
@@ -40,8 +40,7 @@ namespace IrcBot.Client.Triggers
 
             foreach (var kvp in dictionary.OrderByDescending(x => x.Value))
             {
-                client.SendMessage(SendType.Message, client.GetChannels()[0], String.Format(
-                    "{0}: {1}", kvp.Key, kvp.Value));
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format("{0}: {1}", kvp.Key, kvp.Value));
             }
         }
     }

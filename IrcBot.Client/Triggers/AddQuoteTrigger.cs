@@ -3,46 +3,48 @@
 using Meebey.SmartIrc4net;
 
 using IrcBot.Database.Infrastructure;
-using IrcBot.Entities.Models;
 using IrcBot.Database.UnitOfWork;
+using IrcBot.Entities.Models;
 using IrcBot.Service;
 
 namespace IrcBot.Client.Triggers
 {
-    public sealed class AddPointTrigger : ITrigger
+    public class AddQuoteTrigger : ITrigger
     {
         private readonly IUnitOfWorkAsync _unitOfWork;
-        private readonly IPointService _pointService;
+        private readonly IQuoteService _quoteService;
 
-        public AddPointTrigger(IUnitOfWorkAsync unitOfWork, IPointService pointService)
+        public AddQuoteTrigger(IUnitOfWorkAsync unitOfWork, IQuoteService quoteService)
         {
             _unitOfWork = unitOfWork;
-            _pointService = pointService;
+            _quoteService = quoteService;
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
-            if (triggerArgs.Length != 1)
+            if (triggerArgs.Length == 0)
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !addpoint <nick>");
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !addquote <content>");
                 return;
             }
 
             var utcNow = DateTime.UtcNow;
 
-            _pointService.Insert(new Point
+            var quote = new Quote
             {
-                Nick = triggerArgs[0],
-                Value = 1,
+                Author = eventArgs.Data.Nick,
+                Content = String.Join(" ", triggerArgs),
                 Created = utcNow,
                 Modified = utcNow,
                 ObjectState = ObjectState.Added
-            });
+            };
+
+            _quoteService.Insert(quote);
 
             _unitOfWork.SaveChanges();
 
             client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                "{0} has {1} points", triggerArgs[0], _pointService.Count(triggerArgs[0])));
+                "Saved! http://cdnidle.azurewebsites.net/quotes/{0}", quote.Id));
         }
     }
 }

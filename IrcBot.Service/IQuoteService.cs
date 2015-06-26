@@ -2,6 +2,6 @@
 
 namespace IrcBot.Service
 {
-    public interface IMessageService : IService<Message>
+    public interface IQuoteService : IService<Quote>
     { }
 }

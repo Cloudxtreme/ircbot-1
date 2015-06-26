@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IrcBot.Client.Configuration;
+
 using Microsoft.Practices.Unity;
 
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Configuration;
 using IrcBot.Client.Triggers;
 using IrcBot.Database.DataContext;
 using IrcBot.Database.Entity;
@@ -50,21 +51,24 @@ namespace IrcBot.Client
                 .RegisterType<IUnitOfWorkAsync, UnitOfWork>(new ContainerControlledLifetimeManager())
                 .RegisterType<IRepositoryAsync<Message>, Repository<Message>>()
                 .RegisterType<IRepositoryAsync<Point>, Repository<Point>>()
+                .RegisterType<IRepositoryAsync<Quote>, Repository<Quote>>()
                 .RegisterType<IMessageService, MessageService>()
-                .RegisterType<IPointService, PointService>();
+                .RegisterType<IPointService, PointService>()
+                .RegisterType<IQuoteService, QuoteService>();
 
             _triggers = new Dictionary<string, ITrigger>
             {
                 { "!addpoint", new AddPointTrigger(_container.Resolve<IUnitOfWorkAsync>(), _container.Resolve<IPointService>()) },
                 { "!takepoint", new TakePointTrigger(_container.Resolve<IUnitOfWorkAsync>(), _container.Resolve<IPointService>()) },
-                { "!points", new PointsTrigger(_container.Resolve<IPointService>()) }
+                { "!points", new PointsTrigger(_container.Resolve<IPointService>()) },
+                { "!addquote", new AddQuoteTrigger(_container.Resolve<IUnitOfWorkAsync>(), _container.Resolve<IQuoteService>()) }
             };
         }
 
         public void Start()
         {
             _client.Connect(new[] { "irc.freenode.net" }, 6667);
-            _client.Login("shoryuken", "https://github.com/adamstirtan/ircbot");
+            _client.Login(new [] { "shoryuken", "shoryuken_" }, "https://github.com/adamstirtan/ircbot");
             _client.RfcJoin(ChannelName);
 
             _client.Listen();
@@ -84,11 +88,14 @@ namespace IrcBot.Client
 
                 if (_triggers.ContainsKey(split[0]))
                 {
-                    _triggers[split[0]].Execute(_client, split.Skip(1).Take(split.Length - 1).ToArray());
+                    _triggers[split[0]].Execute(
+                        _client,
+                        ircEventArgs,
+                        split.Skip(1).Take(split.Length - 1).ToArray());
                 }
                 else if (split.Length == 1 && split[0].Equals("!help"))
                 {
-                    _client.SendMessage(SendType.Message, ChannelName, String.Format("Commands: {0}",
+                    _client.SendMessage(SendType.Message, ircEventArgs.Data.Channel, String.Format("Commands: {0}",
                         String.Join(", ", _triggers.Select(x => x.Key).ToArray())));
                 }
             }

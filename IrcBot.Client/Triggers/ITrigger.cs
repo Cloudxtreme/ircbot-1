@@ -1,11 +1,9 @@
-﻿using System.Threading.Tasks;
-
-using Meebey.SmartIrc4net;
+﻿using Meebey.SmartIrc4net;
 
 namespace IrcBot.Client.Triggers
 {
     public interface ITrigger
     {
-        void Execute(IrcClient client, string[] parameters);
+        void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs);
     }
 }

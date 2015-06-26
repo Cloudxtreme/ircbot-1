@@ -58,6 +58,7 @@ namespace IrcBot.Client
 
             _triggers = new Dictionary<string, ITrigger>
             {
+                { "!ud", new UrbanDictionaryTrigger() },
                 { "!addpoint", new AddPointTrigger(_container.Resolve<IUnitOfWorkAsync>(), _container.Resolve<IPointService>()) },
                 { "!takepoint", new TakePointTrigger(_container.Resolve<IUnitOfWorkAsync>(), _container.Resolve<IPointService>()) },
                 { "!points", new PointsTrigger(_container.Resolve<IPointService>()) },

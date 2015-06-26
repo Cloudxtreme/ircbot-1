@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\BaseDto.cs" />
+    <Compile Include="Dto\MessageDto.cs" />
     <Compile Include="IrcBotContext.cs" />
     <Compile Include="Mappings\MessageMap.cs" />
     <Compile Include="Mappings\PointMap.cs" />

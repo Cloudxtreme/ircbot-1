@@ -9,8 +9,8 @@
 
         <title>IrcBot</title>
 
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet">
-        <link href="~/Content/app.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="~/content/app.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -59,8 +59,9 @@
 
             </div>
         </div>
+        
+        <script src="~/scripts/require-setup.js"></script>
+        @RenderSection("PageScripts", required: false)
 
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>
     </body>
 </html>

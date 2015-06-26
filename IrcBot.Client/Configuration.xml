@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<servers>
+  <server host="irc.freenode.net" port="6667" />
+</servers>

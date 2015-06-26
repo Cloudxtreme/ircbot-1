@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using IrcBot.Client.Configuration;
 using Microsoft.Practices.Unity;
 
 using Meebey.SmartIrc4net;
@@ -24,11 +24,14 @@ namespace IrcBot.Client
         private const string ChannelName = "#cdnidle";
 
         private readonly IrcClient _client;
+        private readonly IrcBotConfiguration _configuration;
         private readonly Dictionary<string, ITrigger> _triggers;
         private readonly UnityContainer _container;
 
         public IrcBot()
         {
+            _configuration = new IrcBotConfiguration();
+
             _client = new IrcClient
             {
                 Encoding = Encoding.UTF8,

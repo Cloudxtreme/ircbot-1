@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Linq;
 using Meebey.SmartIrc4net;
 
 using IrcBot.Database.Infrastructure;
@@ -14,6 +14,11 @@ namespace IrcBot.Client.Triggers
         private readonly IUnitOfWorkAsync _unitOfWork;
         private readonly IPointService _pointService;
 
+        private readonly string[] _knownNicks =
+        {
+            "rhaydeo", "NukeLaloosh", "mastadonn", "lewzer", "lazerbeast"
+        };
+
         public TakePointTrigger(IUnitOfWorkAsync unitOfWork, IPointService pointService)
         {
             _unitOfWork = unitOfWork;
@@ -25,6 +30,19 @@ namespace IrcBot.Client.Triggers
             if (triggerArgs.Length != 1)
             {
                 client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !takepoint <nick>");
+                return;
+            }
+
+            if (triggerArgs[0] == eventArgs.Data.Nick)
+            {
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "You can't take points from yourself");
+                return;
+            }
+
+            if (!_knownNicks.Contains(triggerArgs[0]))
+            {
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
+                    "Points can only be taken from: {0}", String.Join(", ", _knownNicks.OrderBy(x => x))));
                 return;
             }
 

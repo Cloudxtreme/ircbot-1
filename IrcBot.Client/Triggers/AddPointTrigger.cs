@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Linq;
 using Meebey.SmartIrc4net;
 
 using IrcBot.Database.Infrastructure;
@@ -13,6 +13,11 @@ namespace IrcBot.Client.Triggers
     {
         private readonly IUnitOfWorkAsync _unitOfWork;
         private readonly IPointService _pointService;
+
+        private readonly string[] _knownNicks =
+        {
+            "rhaydeo", "NukeLaloosh", "mastadonn", "lewzer", "lazerbeast"
+        };
 
         public AddPointTrigger(IUnitOfWorkAsync unitOfWork, IPointService pointService)
         {
@@ -31,6 +36,13 @@ namespace IrcBot.Client.Triggers
             if (triggerArgs[0] == eventArgs.Data.Nick)
             {
                 client.SendMessage(SendType.Message, eventArgs.Data.Channel, "You can't give points to yourself");
+                return;
+            }
+
+            if (!_knownNicks.Contains(triggerArgs[0]))
+            {
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
+                    "Points can only be given to: {0}", String.Join(", ", _knownNicks.OrderBy(x => x))));
                 return;
             }
 

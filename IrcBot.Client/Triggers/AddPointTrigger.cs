@@ -28,6 +28,12 @@ namespace IrcBot.Client.Triggers
                 return;
             }
 
+            if (triggerArgs[0] == eventArgs.Data.Nick)
+            {
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "You can't give points to yourself");
+                return;
+            }
+
             var utcNow = DateTime.UtcNow;
 
             _pointService.Insert(new Point

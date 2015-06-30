@@ -59,7 +59,8 @@ namespace IrcBot.Client
                 { "!takepoint", new TakePointTrigger(_container.Resolve<IUnitOfWorkAsync>(), _container.Resolve<IPointService>()) },
                 { "!points", new PointsTrigger(_container.Resolve<IPointService>()) },
                 { "!addquote", new AddQuoteTrigger(_container.Resolve<IUnitOfWorkAsync>(), _container.Resolve<IQuoteService>()) },
-                { "!quote", new QuoteTrigger(_container.Resolve<IQuoteService>()) }
+                { "!quote", new QuoteTrigger(_container.Resolve<IQuoteService>()) },
+                { "!aolsay", new AolSayTrigger() }
             };
         }
         

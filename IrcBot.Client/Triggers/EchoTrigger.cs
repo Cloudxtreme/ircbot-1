@@ -12,13 +12,14 @@ namespace IrcBot.Client.Triggers
     {
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
-            var echoString = String.Join(" ", triggerArgs);
 
             if (triggerArgs.Length < 1)
             {
                 client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !echo need to type something dumbass");
                 return;
             }
+
+            var echoString = String.Join(" ", triggerArgs);
 
             client.SendMessage(SendType.Message, eventArgs.Data.Channel, echoString);
         }

@@ -7,7 +7,6 @@ using Microsoft.Practices.Unity;
 
 using Meebey.SmartIrc4net;
 
-using IrcBot.Client.Configuration;
 using IrcBot.Client.Triggers;
 using IrcBot.Database.DataContext;
 using IrcBot.Database.Entity;
@@ -25,14 +24,11 @@ namespace IrcBot.Client
         private const string ChannelName = "#cdnidle";
 
         private readonly IrcClient _client;
-        private readonly IrcBotConfiguration _configuration;
         private readonly Dictionary<string, ITrigger> _triggers;
         private readonly UnityContainer _container;
 
         public IrcBot()
         {
-            _configuration = new IrcBotConfiguration();
-
             _client = new IrcClient
             {
                 Encoding = Encoding.UTF8,

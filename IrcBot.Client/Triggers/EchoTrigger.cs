@@ -14,7 +14,7 @@ namespace IrcBot.Client.Triggers
         {
             var echoString = String.Join(" ", triggerArgs);
 
-            if (triggerArgs.Length != 1)
+            if (triggerArgs.Length < 1)
             {
                 client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !echo need to type something dumbass");
                 return;

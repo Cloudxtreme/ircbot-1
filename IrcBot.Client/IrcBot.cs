@@ -66,6 +66,7 @@ namespace IrcBot.Client
                 { "!quote", new QuoteTrigger(_container.Resolve<IQuoteService>()) }
             };
         }
+        
 
         public void Start()
         {

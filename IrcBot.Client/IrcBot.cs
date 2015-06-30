@@ -97,7 +97,7 @@ namespace IrcBot.Client
                 else if (split.Length == 1 && split[0].Equals("!help"))
                 {
                     _client.SendMessage(SendType.Message, ircEventArgs.Data.Channel, String.Format("Commands: {0}",
-                        String.Join(", ", _triggers.Select(x => x.Key).ToArray())));
+                        String.Join(", ", _triggers.Select(x => x.Key).OrderBy(x => x).ToArray())));
                 }
             }
             else

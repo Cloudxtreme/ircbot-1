@@ -56,6 +56,7 @@
     <Compile Include="Mappings\MessageMap.cs" />
     <Compile Include="Mappings\PointMap.cs" />
     <Compile Include="Mappings\QuoteMap.cs" />
+    <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Migrations\201506241807264_Initial_Database_Migration.cs" />
     <Compile Include="Migrations\201506241807264_Initial_Database_Migration.Designer.cs">
       <DependentUpon>201506241807264_Initial_Database_Migration.cs</DependentUpon>
@@ -68,10 +69,16 @@
     <Compile Include="Migrations\201506260124432_Add_Quotes_Table.Designer.cs">
       <DependentUpon>201506260124432_Add_Quotes_Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506301952261_Add_Users_Table.cs" />
+    <Compile Include="Migrations\201506301952261_Add_Users_Table.Designer.cs">
+      <DependentUpon>201506301952261_Add_Users_Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Point.cs" />
     <Compile Include="Models\Quote.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserHostMask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506260124432_Add_Quotes_Table.resx">
       <DependentUpon>201506260124432_Add_Quotes_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506301952261_Add_Users_Table.resx">
+      <DependentUpon>201506301952261_Add_Users_Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

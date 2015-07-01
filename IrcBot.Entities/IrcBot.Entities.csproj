@@ -87,6 +87,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IrcBot.Common\IrcBot.Common.csproj">
+      <Project>{ECA64665-8B46-4611-B066-76E3B5280A2F}</Project>
+      <Name>IrcBot.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IrcBot.Database.Entity\IrcBot.Database.Entity.csproj">
       <Project>{45D41086-A07E-4907-9334-689BDFA1C203}</Project>
       <Name>IrcBot.Database.Entity</Name>

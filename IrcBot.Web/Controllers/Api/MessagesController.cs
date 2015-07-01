@@ -5,17 +5,20 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
+using IrcBot.Database.UnitOfWork;
 using IrcBot.Entities.Dto;
 using IrcBot.Entities.Models;
 using IrcBot.Service;
 
 namespace IrcBot.Web.Controllers.Api
 {
-    public class MessagesController : ApiController
+    [Authorize]
+    public class MessagesController : AuthenticatedApiController
     {
         private readonly IMessageService _messageService;
 
-        public MessagesController(IMessageService messageService)
+        public MessagesController(IUnitOfWorkAsync unitOfWork, IUserService userService, IMessageService messageService)
+            : base(unitOfWork, userService)
         {
             _messageService = messageService;
         }

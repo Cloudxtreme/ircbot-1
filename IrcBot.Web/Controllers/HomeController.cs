@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 using IrcBot.Common.Encryption;
+using IrcBot.Common.Infrastructure;
 using IrcBot.Entities.Dto;
 using IrcBot.Service;
 
@@ -22,6 +23,11 @@ namespace IrcBot.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (HttpContextFactory.Current.Request.IsAuthenticated)
+            {
+                return RedirectToAction("index", "dashboard");
+            }
+
             return View();
         }
 

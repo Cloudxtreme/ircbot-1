@@ -34,8 +34,10 @@ namespace IrcBot.Web
                 .RegisterType<IRepositoryAsync<Message>, Repository<Message>>()
                 .RegisterType<IRepositoryAsync<Point>, Repository<Point>>()
                 .RegisterType<IRepositoryAsync<Quote>, Repository<Quote>>()
+                .RegisterType<IRepositoryAsync<User>, Repository<User>>()
                 .RegisterType<IMessageService, MessageService>()
-                .RegisterType<IPointService, PointService>();
+                .RegisterType<IPointService, PointService>()
+                .RegisterType<IUserService, UserService>();
         }
     }
 }

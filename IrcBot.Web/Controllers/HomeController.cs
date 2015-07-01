@@ -29,6 +29,8 @@ namespace IrcBot.Web.Controllers
                 return View();
             }
 
+
+
             return RedirectToAction("index", "dashboard");
         }
     }

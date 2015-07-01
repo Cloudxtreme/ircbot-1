@@ -43,15 +43,26 @@ namespace IrcBot.Web.Controllers
 
             var encryptedPassword = PasswordEncryption.Encrypt(loginAttempt.Password);
 
-            var user = (await _userService.Query(x =>
+            var authenticated = (await _userService.Query(x =>
                 x.Email == loginAttempt.Email &&
-                x.Password == encryptedPassword).SelectAsync()).SingleOrDefault();
+                x.Password == encryptedPassword).SelectAsync()).Any();
 
-            if (user != null)
+            if (authenticated)
             {
-                FormsAuthentication.SetAuthCookie(user.Email, true);
+                FormsAuthentication.SetAuthCookie(loginAttempt.Email, true);
+
+                // TODO: returnUrl is always null
+                
+                if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                    && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                {
+                    return Redirect(returnUrl);
+                }
+
                 return RedirectToAction("index", "dashboard");
             }
+
+            ModelState.AddModelError("", "Email or password was incorrect");
 
             return View();
         }

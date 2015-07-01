@@ -151,6 +151,7 @@
     <Content Include="Content\forms.css" />
     <Content Include="Content\forms.min.css" />
     <Content Include="Content\app.css" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\theme.css" />
     <Content Include="Content\theme.min.css" />
     <Content Include="favicon.ico" />

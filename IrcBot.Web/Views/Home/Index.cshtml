@@ -40,6 +40,11 @@
                 <section id="content">
 
                     <div class="admin-form theme-info mw500" id="login">
+                        
+                        <div class="row table-layout">
+                            <h3 class="pull-right">#CDNidle</h3>
+                            <img src="~/content/images/logo.png" alt="IrcBot" class="img-responsive" style="max-width: 275px;">
+                        </div>
 
                         <div class="panel mt30 mb25">
                             
@@ -71,14 +76,14 @@
                                 </div>
 
                                 <div class="panel-footer clearfix">
-                                    <button type="submit" class="button btn-primary mr10 pull-right">Sign In</button>
+                                    <button type="submit" class="button btn-primary mr10 pull-right">Log in</button>
                                 </div>
                             }
                                 
                         </div>
 
                         <div class="login-links">
-                            @Html.ActionLink("Login", "Index", "Home", null, new { @class = "active" }) |
+                            @Html.ActionLink("Log in", "Index", "Home", null, new { @class = "active" }) |
                             @Html.ActionLink("Register", "index", "register")
                         </div>
 

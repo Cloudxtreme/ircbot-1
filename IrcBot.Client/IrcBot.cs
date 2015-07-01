@@ -39,6 +39,7 @@ namespace IrcBot.Client
             _client.OnErrorMessage += ClientOnOnErrorMessage;
             _client.OnChannelMessage += ClientOnOnChannelMessage;
             _client.OnQueryMessage += ClientOnOnQueryMessage;
+            _client.OnJoin += ClientOnOnJoin;
 
             _container = new UnityContainer();
 
@@ -64,7 +65,6 @@ namespace IrcBot.Client
                 { "!echo", new EchoTrigger() }
             };
         }
-        
 
         public void Start()
         {
@@ -121,6 +121,9 @@ namespace IrcBot.Client
         }
 
         private void ClientOnOnQueryMessage(object sender, IrcEventArgs ircEventArgs)
+        { }
+
+        private void ClientOnOnJoin(object sender, JoinEventArgs joinEventArgs)
         { }
     }
 }

@@ -15,9 +15,12 @@ namespace IrcBot.Entities.Mappings
                 .IsRequired()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            Property(x => x.Nick)
+            Property(x => x.Email)
                 .IsRequired()
                 .HasMaxLength(64);
+
+            Property(x => x.Password)
+                .IsRequired();
 
             Property(x => x.Created)
                 .IsRequired();
@@ -28,7 +31,8 @@ namespace IrcBot.Entities.Mappings
             ToTable("Users");
 
             Property(x => x.Id).HasColumnName("Id");
-            Property(x => x.Nick).HasColumnName("Nick");
+            Property(x => x.Email).HasColumnName("Email");
+            Property(x => x.Password).HasColumnName("Password");
             Property(x => x.Created).HasColumnName("Created");
             Property(x => x.Modified).HasColumnName("Modified");
         }

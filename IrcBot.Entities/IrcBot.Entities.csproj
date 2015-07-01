@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\BaseDto.cs" />
+    <Compile Include="Dto\LoginAttemptDto.cs" />
     <Compile Include="Dto\MessageDto.cs" />
     <Compile Include="IrcBotContext.cs" />
     <Compile Include="Mappings\MessageMap.cs" />
@@ -72,6 +73,10 @@
     <Compile Include="Migrations\201506301952261_Add_Users_Table.cs" />
     <Compile Include="Migrations\201506301952261_Add_Users_Table.Designer.cs">
       <DependentUpon>201506301952261_Add_Users_Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507010111503_Refactor_User_Model.cs" />
+    <Compile Include="Migrations\201507010111503_Refactor_User_Model.Designer.cs">
+      <DependentUpon>201507010111503_Refactor_User_Model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Message.cs" />
@@ -103,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506301952261_Add_Users_Table.resx">
       <DependentUpon>201506301952261_Add_Users_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507010111503_Refactor_User_Model.resx">
+      <DependentUpon>201507010111503_Refactor_User_Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

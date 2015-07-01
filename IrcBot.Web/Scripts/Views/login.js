@@ -1,0 +1,6 @@
+﻿require(['jquery'], function ($) {
+
+    $(function () {
+        
+    });
+});

@@ -127,14 +127,83 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Fonts\admindesigns\admindesigns.css" />
+    <Content Include="Content\Fonts\admindesigns\admindesigns.svg" />
+    <Content Include="Content\Fonts\font-awesome\font-awesome.css" />
+    <Content Include="Content\Fonts\font-awesome\fontawesome-webfont.svg" />
+    <Content Include="Content\Fonts\glyphicons-pro\glyphicons-pro.css" />
+    <Content Include="Content\Fonts\glyphicons-pro\glyphicons-regular.svg" />
+    <Content Include="Content\Fonts\glyphicons-pro\license.txt" />
+    <Content Include="Content\Fonts\glyphicons\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Fonts\glyphicons\glyphicons.css" />
+    <Content Include="Content\Fonts\icomoon\icomoon.css" />
+    <Content Include="Content\Fonts\icomoon\icomoon.svg" />
+    <Content Include="Content\Fonts\iconsweets\IconSweets-Deluxe.dev.svg" />
+    <Content Include="Content\Fonts\iconsweets\IconSweets-Deluxe.svg" />
+    <Content Include="Content\Fonts\iconsweets\iconsweets.css" />
+    <Content Include="Content\Fonts\octicons\octicons.css" />
+    <Content Include="Content\Fonts\octicons\octicons.svg" />
+    <Content Include="Content\Fonts\open-sans\open-sans.css" />
+    <Content Include="Content\Fonts\stateface\stateface-regular-webfont.svg" />
+    <Content Include="Content\Fonts\stateface\stateface.css" />
+    <Content Include="Content\Fonts\zocial\zocial-regular-webfont.svg" />
+    <Content Include="Content\Fonts\zocial\zocial.css" />
+    <Content Include="Content\forms.css" />
+    <Content Include="Content\forms.min.css" />
     <Content Include="Content\app.css" />
+    <Content Include="Content\theme.css" />
+    <Content Include="Content\theme.min.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Content\Fonts\admindesigns\admindesigns.eot" />
+    <Content Include="Content\Fonts\admindesigns\admindesigns.ttf" />
+    <Content Include="Content\Fonts\admindesigns\admindesigns.woff" />
+    <Content Include="Content\Fonts\font-awesome\fontawesome-webfont.eot" />
+    <Content Include="Content\Fonts\font-awesome\fontawesome-webfont.ttf" />
+    <Content Include="Content\Fonts\font-awesome\fontawesome-webfont.woff" />
+    <Content Include="Content\Fonts\font-awesome\fontawesome-webfont.woff2" />
+    <Content Include="Content\Fonts\font-awesome\FontAwesome.otf" />
+    <Content Include="Content\Fonts\glyphicons-pro\glyphicons-regular.eot" />
+    <Content Include="Content\Fonts\glyphicons-pro\glyphicons-regular.otf" />
+    <Content Include="Content\Fonts\glyphicons-pro\glyphicons-regular.ttf" />
+    <Content Include="Content\Fonts\glyphicons-pro\glyphicons-regular.woff" />
+    <Content Include="Content\Fonts\glyphicons\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Fonts\glyphicons\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\Fonts\glyphicons\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Fonts\glyphicons\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\Fonts\icomoon\icomoon.eot" />
+    <Content Include="Content\Fonts\icomoon\icomoon.ttf" />
+    <Content Include="Content\Fonts\icomoon\icomoon.woff" />
+    <Content Include="Content\Fonts\iconsweets\IconSweets-Deluxe.eot" />
+    <Content Include="Content\Fonts\iconsweets\IconSweets-Deluxe.ttf" />
+    <Content Include="Content\Fonts\iconsweets\IconSweets-Deluxe.woff" />
+    <Content Include="Content\Fonts\iconsweets\License.rtf" />
+    <Content Include="Content\Fonts\octicons\octicons.eot" />
+    <Content Include="Content\Fonts\octicons\octicons.ttf" />
+    <Content Include="Content\Fonts\octicons\octicons.woff" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-Bold.ttf" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-BoldItalic.ttf" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-ExtraBold.ttf" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-Italic.ttf" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-Light.ttf" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-LightItalic.ttf" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-Regular.ttf" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-SemiBold.ttf" />
+    <Content Include="Content\Fonts\open-sans\OpenSans-SemiBoldItalic.ttf" />
+    <Content Include="Content\Fonts\stateface\stateface-regular-webfont.eot" />
+    <Content Include="Content\Fonts\stateface\stateface-regular-webfont.ttf" />
+    <Content Include="Content\Fonts\stateface\stateface-regular-webfont.woff" />
+    <Content Include="Content\Fonts\zocial\zocial-regular-webfont.eot" />
+    <Content Include="Content\Fonts\zocial\zocial-regular-webfont.ttf" />
+    <Content Include="Content\Fonts\zocial\zocial-regular-webfont.woff" />
     <None Include="Properties\PublishProfiles\cdnidle.pubxml" />
     <Content Include="Scripts\dashboard.js" />
     <Content Include="Scripts\messages.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require-setup.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\Views\login.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -144,9 +213,11 @@
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\MessagesController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\QuotesController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -160,6 +231,8 @@
     <Content Include="Views\Messages\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Quotes\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -169,7 +242,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IrcBot.Database.Entity\IrcBot.Database.Entity.csproj">

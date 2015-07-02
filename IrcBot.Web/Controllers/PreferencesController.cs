@@ -2,16 +2,10 @@
 
 namespace IrcBot.Web.Controllers
 {
-    public class MessagesController : Controller
+    public class PreferencesController : Controller
     {
         [HttpGet]
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Realtime()
         {
             return View();
         }

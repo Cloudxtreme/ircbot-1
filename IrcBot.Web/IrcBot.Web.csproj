@@ -218,8 +218,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\PointsController.cs" />
+    <Compile Include="Controllers\PreferencesController.cs" />
     <Compile Include="Controllers\QuotesController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -239,6 +242,13 @@
     <Content Include="Views\Shared\LayoutLeftSidebar.cshtml" />
     <Content Include="Views\Shared\LayoutHeader.cshtml" />
     <Content Include="Views\Shared\LayoutRightSidebar.cshtml" />
+    <Content Include="Views\Messages\Realtime.cshtml" />
+    <Content Include="Views\Quotes\Best.cshtml" />
+    <Content Include="Views\Quotes\Worst.cshtml" />
+    <Content Include="Views\Points\Index.cshtml" />
+    <Content Include="Views\Settings\Users.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Preferences\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

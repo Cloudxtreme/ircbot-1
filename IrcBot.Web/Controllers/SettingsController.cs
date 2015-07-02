@@ -2,7 +2,7 @@
 
 namespace IrcBot.Web.Controllers
 {
-    public class QuotesController : Controller
+    public class SettingsController : Controller
     {
         [HttpGet]
         public ActionResult Index()
@@ -11,13 +11,7 @@ namespace IrcBot.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Best()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Worst()
+        public ActionResult Users()
         {
             return View();
         }

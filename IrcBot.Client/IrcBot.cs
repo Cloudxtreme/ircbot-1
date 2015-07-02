@@ -67,7 +67,8 @@ namespace IrcBot.Client
                 { "!quote", new QuoteTrigger(_container.Resolve<IQuoteService>()) },
                 { "!aolsay", new AolSayTrigger() },
                 { "!echo", new EchoTrigger() },
-                { "!insult", new InsultTrigger() }
+                { "!insult", new InsultTrigger() },
+                { "!seen", new SeenTrigger(_container.Resolve<IChannelActivityService>()) }
             };
         }
 

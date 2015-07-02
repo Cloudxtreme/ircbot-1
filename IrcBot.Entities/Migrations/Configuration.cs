@@ -37,6 +37,14 @@ namespace IrcBot.Entities.Migrations
                     Created = utcNow,
                     Modified = utcNow,
                     ObjectState = ObjectState.Added
+                },
+                new User
+                {
+                    Email = "michaeljohndukich@gmail.com",
+                    Password = PasswordEncryption.Encrypt("smellslikefarts"),
+                    Created = utcNow,
+                    Modified = utcNow,
+                    ObjectState = ObjectState.Added
                 }
             });
         }

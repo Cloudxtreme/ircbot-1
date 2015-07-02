@@ -28,14 +28,8 @@ namespace IrcBot.Client.Triggers
 
             var random = new Random(DateTime.UtcNow.Millisecond);
 
-            var insultString = String.Join(" ", Insult[random.Next(0, Insult.Count)]);
-
-            var userString = String.Join(" ", triggerArgs);
-
-            var finalString = String.Join(" ", (userString) , (insultString));
-
-            client.SendMessage(SendType.Message, eventArgs.Data.Channel, finalString);
-
+            client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format("{0}: {1}",
+                Insult[random.Next(0, Insult.Count)], String.Join(" ", triggerArgs)));\
         }
     }
 }

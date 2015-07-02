@@ -14,6 +14,8 @@
 
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
         <link rel="stylesheet" type="text/css" href="~/content/theme.css">
+        
+        @RenderSection("PageStyles", false)
 
         <link rel="shortcut icon" href="~/favicon.ico">
 
@@ -33,54 +35,9 @@
 
             <section id="content_wrapper">
 
-                <!-- Start: Topbar-Dropdown -->
-                <div id="topbar-dropmenu" class="alt">
-                    <div class="topbar-menu row">
-                        <div class="col-xs-4 col-sm-2">
-                            <a href="#" class="metro-tile bg-primary light">
-                                <span class="glyphicon glyphicon-inbox text-muted"></span>
-                                <span class="metro-title">Messages</span>
-                            </a>
-                        </div>
-                        <div class="col-xs-4 col-sm-2">
-                            <a href="#" class="metro-tile bg-info light">
-                                <span class="glyphicon glyphicon-user text-muted"></span>
-                                <span class="metro-title">Users</span>
-                            </a>
-                        </div>
-                        <div class="col-xs-4 col-sm-2">
-                            <a href="#" class="metro-tile bg-success light">
-                                <span class="glyphicon glyphicon-headphones text-muted"></span>
-                                <span class="metro-title">Support</span>
-                            </a>
-                        </div>
-                        <div class="col-xs-4 col-sm-2">
-                            <a href="#" class="metro-tile bg-system light">
-                                <span class="glyphicon glyphicon-facetime-video text-muted"></span>
-                                <span class="metro-title">Videos</span>
-                            </a>
-                        </div>
-                        <div class="col-xs-4 col-sm-2">
-                            <a href="#" class="metro-tile bg-warning light">
-                                <span class="fa fa-gears text-muted"></span>
-                                <span class="metro-title">Settings</span>
-                            </a>
-                        </div>
-                        <div class="col-xs-4 col-sm-2">
-                            <a href="#" class="metro-tile bg-alert light">
-                                <span class="glyphicon glyphicon-picture text-muted"></span>
-                                <span class="metro-title">Pictures</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- End: Topbar-Dropdown -->
-
                 @RenderBody()
 
             </section>
-
-            @Html.Partial("LayoutRightSidebar")
 
         </div>
         

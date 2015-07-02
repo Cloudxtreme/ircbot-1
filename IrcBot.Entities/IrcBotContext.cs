@@ -17,6 +17,7 @@ namespace IrcBot.Entities
             : base("name=IrcBotContext")
         { }
 
+        public DbSet<ChannelActivity> ChannelActivities { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Point> Points { get; set; }
         public DbSet<Quote> Quotes { get; set; }
@@ -24,6 +25,7 @@ namespace IrcBot.Entities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new ChannelActivityMap());
             modelBuilder.Configurations.Add(new MessageMap());
             modelBuilder.Configurations.Add(new PointMap());
             modelBuilder.Configurations.Add(new QuoteMap());

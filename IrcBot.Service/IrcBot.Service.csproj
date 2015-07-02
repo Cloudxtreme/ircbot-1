@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChannelActivityService.cs" />
+    <Compile Include="IChannelActivityService.cs" />
     <Compile Include="IMessageService.cs" />
     <Compile Include="IPointService.cs" />
     <Compile Include="IQuoteService.cs" />

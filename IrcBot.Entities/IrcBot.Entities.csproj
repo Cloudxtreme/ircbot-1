@@ -54,6 +54,7 @@
     <Compile Include="Dto\LoginAttemptDto.cs" />
     <Compile Include="Dto\MessageDto.cs" />
     <Compile Include="IrcBotContext.cs" />
+    <Compile Include="Mappings\ChannelActivityMap.cs" />
     <Compile Include="Mappings\MessageMap.cs" />
     <Compile Include="Mappings\PointMap.cs" />
     <Compile Include="Mappings\QuoteMap.cs" />
@@ -78,11 +79,17 @@
     <Compile Include="Migrations\201507010111503_Refactor_User_Model.Designer.cs">
       <DependentUpon>201507010111503_Refactor_User_Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507021733524_Add_ChannelActivity_Table.cs" />
+    <Compile Include="Migrations\201507021733524_Add_ChannelActivity_Table.Designer.cs">
+      <DependentUpon>201507021733524_Add_ChannelActivity_Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ChannelActivity.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Point.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAction.cs" />
     <Compile Include="Models\UserHostMask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507010111503_Refactor_User_Model.resx">
       <DependentUpon>201507010111503_Refactor_User_Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507021733524_Add_ChannelActivity_Table.resx">
+      <DependentUpon>201507021733524_Add_ChannelActivity_Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

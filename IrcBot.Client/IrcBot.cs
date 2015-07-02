@@ -36,19 +36,23 @@ namespace IrcBot.Client
                 ActiveChannelSyncing = true,
             };
 
-            _client.OnErrorMessage += ClientOnOnErrorMessage;
-            _client.OnChannelMessage += ClientOnOnChannelMessage;
-            _client.OnQueryMessage += ClientOnOnQueryMessage;
-            _client.OnJoin += ClientOnOnJoin;
+            _client.OnErrorMessage += ClientOnErrorMessage;
+            _client.OnChannelMessage += ClientOnChannelMessage;
+            _client.OnQueryMessage += ClientOnQueryMessage;
+            _client.OnJoin += ClientOnJoin;
+            _client.OnPart += ClientOnPart;
+            _client.OnQuit += ClientOnQuit;
 
             _container = new UnityContainer();
 
             _container
                 .RegisterType<IDataContextAsync, IrcBotContext>(new ContainerControlledLifetimeManager())
                 .RegisterType<IUnitOfWorkAsync, UnitOfWork>(new ContainerControlledLifetimeManager())
+                .RegisterType<IRepositoryAsync<ChannelActivity>, Repository<ChannelActivity>>()
                 .RegisterType<IRepositoryAsync<Message>, Repository<Message>>()
                 .RegisterType<IRepositoryAsync<Point>, Repository<Point>>()
                 .RegisterType<IRepositoryAsync<Quote>, Repository<Quote>>()
+                .RegisterType<IChannelActivityService, ChannelActivityService>()
                 .RegisterType<IMessageService, MessageService>()
                 .RegisterType<IPointService, PointService>()
                 .RegisterType<IQuoteService, QuoteService>();
@@ -77,10 +81,10 @@ namespace IrcBot.Client
             _client.Disconnect();
         }
 
-        private void ClientOnOnErrorMessage(object sender, IrcEventArgs ircEventArgs)
+        private void ClientOnErrorMessage(object sender, IrcEventArgs ircEventArgs)
         { }
 
-        private void ClientOnOnChannelMessage(object sender, IrcEventArgs ircEventArgs)
+        private void ClientOnChannelMessage(object sender, IrcEventArgs ircEventArgs)
         {
             var message = ircEventArgs.Data.Message;
 
@@ -121,10 +125,73 @@ namespace IrcBot.Client
             }
         }
 
-        private void ClientOnOnQueryMessage(object sender, IrcEventArgs ircEventArgs)
+        private void ClientOnQueryMessage(object sender, IrcEventArgs ircEventArgs)
         { }
 
-        private void ClientOnOnJoin(object sender, JoinEventArgs joinEventArgs)
-        { }
+        private void ClientOnJoin(object sender, JoinEventArgs joinEventArgs)
+        {
+            var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
+            var channelActivityService = _container.Resolve<IChannelActivityService>();
+
+            var utcNow = DateTime.UtcNow;
+
+            unitOfWork.BeginTransaction();
+
+            channelActivityService.Insert(new ChannelActivity
+            {
+                Action = UserAction.Join,
+                Nick = joinEventArgs.Who,
+                Created = utcNow,
+                Modified = utcNow,
+                ObjectState = ObjectState.Added
+            });
+
+            unitOfWork.SaveChanges();
+            unitOfWork.Commit();
+        }
+
+        private void ClientOnPart(object sender, PartEventArgs partEventArgs)
+        {
+            var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
+            var channelActivityService = _container.Resolve<IChannelActivityService>();
+
+            var utcNow = DateTime.UtcNow;
+
+            unitOfWork.BeginTransaction();
+
+            channelActivityService.Insert(new ChannelActivity
+            {
+                Action = UserAction.Part,
+                Nick = partEventArgs.Who,
+                Created = utcNow,
+                Modified = utcNow,
+                ObjectState = ObjectState.Added
+            });
+
+            unitOfWork.SaveChanges();
+            unitOfWork.Commit();
+        }
+
+        private void ClientOnQuit(object sender, QuitEventArgs quitEventArgs)
+        {
+            var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
+            var channelActivityService = _container.Resolve<IChannelActivityService>();
+
+            var utcNow = DateTime.UtcNow;
+
+            unitOfWork.BeginTransaction();
+
+            channelActivityService.Insert(new ChannelActivity
+            {
+                Action = UserAction.Quit,
+                Nick = quitEventArgs.Who,
+                Created = utcNow,
+                Modified = utcNow,
+                ObjectState = ObjectState.Added
+            });
+
+            unitOfWork.SaveChanges();
+            unitOfWork.Commit();
+        }
     }
 }

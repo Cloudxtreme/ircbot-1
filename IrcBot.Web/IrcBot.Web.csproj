@@ -236,6 +236,9 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Logout\Index.cshtml" />
+    <Content Include="Views\Shared\LayoutLeftSidebar.cshtml" />
+    <Content Include="Views\Shared\LayoutHeader.cshtml" />
+    <Content Include="Views\Shared\LayoutRightSidebar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

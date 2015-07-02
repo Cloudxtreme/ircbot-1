@@ -29,7 +29,7 @@ namespace IrcBot.Client.Triggers
             var random = new Random(DateTime.UtcNow.Millisecond);
 
             client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format("{0}: {1}",
-                Insult[random.Next(0, Insult.Count)], String.Join(" ", triggerArgs)));
+                String.Join(" ", triggerArgs), Insult[random.Next(0, Insult.Count)]));
         }
     }
 }

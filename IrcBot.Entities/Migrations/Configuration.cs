@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
+
 using IrcBot.Common.Encryption;
 using IrcBot.Database.Infrastructure;
 using IrcBot.Entities.Models;
@@ -42,6 +43,22 @@ namespace IrcBot.Entities.Migrations
                 {
                     Email = "michaeljohndukich@gmail.com",
                     Password = PasswordEncryption.Encrypt("smellslikefarts"),
+                    Created = utcNow,
+                    Modified = utcNow,
+                    ObjectState = ObjectState.Added
+                },
+                new User
+                {
+                    Email = "donnycosby@gmail.com",
+                    Password = PasswordEncryption.Encrypt("gameboy"),
+                    Created = utcNow,
+                    Modified = utcNow,
+                    ObjectState = ObjectState.Added
+                },
+                new User
+                {
+                    Email = "davef@dataforge.on.ca",
+                    Password = PasswordEncryption.Encrypt("biglongdong"),
                     Created = utcNow,
                     Modified = utcNow,
                     ObjectState = ObjectState.Added

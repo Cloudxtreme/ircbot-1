@@ -15,7 +15,18 @@ namespace IrcBot.Client.Triggers
             "You're so dumb you think manual labor is a Mexican!",
             "You're so ugly you'd make a train take a dirt road!",
             "Is that an accent, or is your mouth just full of sperm?",
-            "I  hear that when your mother first saw you she decided to leave you on the front steps of a police station while she turned herself in"
+            "You  were  born  because  your  mother  didn't believe in abortion; now she believes in infanticide.",
+            "No  one should be punished for accident of birth but you look too much like a wreck not to be.",
+            "Yours was an unnatural birth; you came from a human being.",
+            "I  admire  your because I've never had the courage it takes to be a liar, a thief and a cheat.",
+            "Is your ass jealous of the amount of shit that just came out of your mouth?",
+            "Your birth certificate is an apology letter from the condom factory.",
+            "Your family tree must be a cactus because everybody on it is a prick.",
+            "Yo're so ugly, when your mom dropped you off at school she got a fine for littering.",
+            "Which sexual position produces the ugliest children? Ask your mother.",
+            "If bullshit could float...you'd be the Admiral of the fleet!",
+            "Aha, I see the Fuck-Up Fairy has visited us again!",
+            "Whats the difference between your girlfriend and a walrus? One has a moustache and smells of fish and the other is a walrus."
         };
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)

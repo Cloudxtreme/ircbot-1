@@ -66,6 +66,15 @@ namespace IrcBot.Entities.Migrations
                     Created = now,
                     Modified = now,
                     ObjectState = ObjectState.Added
+                },
+                new User
+                {
+                    Id = 4,
+                    Email = "kenbayton@gmail.com",
+                    Password = PasswordEncryption.Encrypt("boyonfire"),
+                    Created = now,
+                    Modified = now,
+                    ObjectState = ObjectState.Added
                 }
             });
         }

@@ -33,6 +33,7 @@ namespace IrcBot.Entities.Migrations
             {
                 new User
                 {
+                    Id = 1,
                     Email = "adamstirtan@gmail.com",
                     Password = PasswordEncryption.Encrypt("Super3vilGenius"),
                     Created = utcNow,
@@ -41,6 +42,7 @@ namespace IrcBot.Entities.Migrations
                 },
                 new User
                 {
+                    Id = 2,
                     Email = "michaeljohndukich@gmail.com",
                     Password = PasswordEncryption.Encrypt("smellslikefarts"),
                     Created = utcNow,
@@ -49,6 +51,7 @@ namespace IrcBot.Entities.Migrations
                 },
                 new User
                 {
+                    Id = 3,
                     Email = "donnycosby@gmail.com",
                     Password = PasswordEncryption.Encrypt("gameboy"),
                     Created = utcNow,
@@ -57,6 +60,7 @@ namespace IrcBot.Entities.Migrations
                 },
                 new User
                 {
+                    Id = 4,
                     Email = "davef@dataforge.on.ca",
                     Password = PasswordEncryption.Encrypt("biglongdong"),
                     Created = utcNow,

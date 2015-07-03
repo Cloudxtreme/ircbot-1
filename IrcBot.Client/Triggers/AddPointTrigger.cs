@@ -47,14 +47,10 @@ namespace IrcBot.Client.Triggers
                 return;
             }
 
-            var now = DateTime.Now;
-
             _pointService.Insert(new Point
             {
                 Nick = triggerArgs[0],
                 Value = 1,
-                Created = now,
-                Modified = now,
                 ObjectState = ObjectState.Added
             });
 

@@ -130,16 +130,12 @@ namespace IrcBot.Client
             var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
             var channelActivityService = _container.Resolve<IChannelActivityService>();
 
-            var now = DateTime.Now;
-
             unitOfWork.BeginTransaction();
 
             channelActivityService.Insert(new ChannelActivity
             {
                 Action = UserAction.Join,
                 Nick = joinEventArgs.Who,
-                Created = now,
-                Modified = now,
                 ObjectState = ObjectState.Added
             });
 
@@ -152,16 +148,12 @@ namespace IrcBot.Client
             var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
             var channelActivityService = _container.Resolve<IChannelActivityService>();
 
-            var now = DateTime.Now;
-
             unitOfWork.BeginTransaction();
 
             channelActivityService.Insert(new ChannelActivity
             {
                 Action = UserAction.Part,
                 Nick = partEventArgs.Who,
-                Created = now,
-                Modified = now,
                 ObjectState = ObjectState.Added
             });
 
@@ -174,16 +166,12 @@ namespace IrcBot.Client
             var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
             var channelActivityService = _container.Resolve<IChannelActivityService>();
 
-            var now = DateTime.Now;
-
             unitOfWork.BeginTransaction();
 
             channelActivityService.Insert(new ChannelActivity
             {
                 Action = UserAction.Quit,
                 Nick = quitEventArgs.Who,
-                Created = now,
-                Modified = now,
                 ObjectState = ObjectState.Added
             });
 

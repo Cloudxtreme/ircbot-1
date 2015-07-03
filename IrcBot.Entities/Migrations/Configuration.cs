@@ -27,7 +27,7 @@ namespace IrcBot.Entities.Migrations
             }
 #pragma warning restore 162
 
-            var utcNow = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             context.Users.AddOrUpdate(new []
             {
@@ -36,8 +36,8 @@ namespace IrcBot.Entities.Migrations
                     Id = 1,
                     Email = "adamstirtan@gmail.com",
                     Password = PasswordEncryption.Encrypt("Super3vilGenius"),
-                    Created = utcNow,
-                    Modified = utcNow,
+                    Created = now,
+                    Modified = now,
                     ObjectState = ObjectState.Added
                 },
                 new User
@@ -45,8 +45,8 @@ namespace IrcBot.Entities.Migrations
                     Id = 2,
                     Email = "michaeljohndukich@gmail.com",
                     Password = PasswordEncryption.Encrypt("smellslikefarts"),
-                    Created = utcNow,
-                    Modified = utcNow,
+                    Created = now,
+                    Modified = now,
                     ObjectState = ObjectState.Added
                 },
                 new User
@@ -54,8 +54,8 @@ namespace IrcBot.Entities.Migrations
                     Id = 3,
                     Email = "donnycosby@gmail.com",
                     Password = PasswordEncryption.Encrypt("gameboy"),
-                    Created = utcNow,
-                    Modified = utcNow,
+                    Created = now,
+                    Modified = now,
                     ObjectState = ObjectState.Added
                 },
                 new User
@@ -63,8 +63,8 @@ namespace IrcBot.Entities.Migrations
                     Id = 4,
                     Email = "davef@dataforge.on.ca",
                     Password = PasswordEncryption.Encrypt("biglongdong"),
-                    Created = utcNow,
-                    Modified = utcNow,
+                    Created = now,
+                    Modified = now,
                     ObjectState = ObjectState.Added
                 }
             });

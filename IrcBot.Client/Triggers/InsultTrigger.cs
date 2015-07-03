@@ -8,7 +8,6 @@ namespace IrcBot.Client.Triggers
     public class InsultTrigger : ITrigger
     {          
         private static readonly List<string> Insult = new List<string>
-
         {
             "you suck",
             "has a little pecker",
@@ -37,7 +36,7 @@ namespace IrcBot.Client.Triggers
                 return;
             }
 
-            var random = new Random(DateTime.UtcNow.Millisecond);
+            var random = new Random(DateTime.Now.Millisecond);
 
             client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format("{0}: {1}",
                 String.Join(" ", triggerArgs), Insult[random.Next(0, Insult.Count)]));

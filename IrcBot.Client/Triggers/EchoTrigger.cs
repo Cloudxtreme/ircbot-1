@@ -1,10 +1,6 @@
-﻿using Meebey.SmartIrc4net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
+using Meebey.SmartIrc4net;
 
 namespace IrcBot.Client.Triggers
 {
@@ -12,7 +8,6 @@ namespace IrcBot.Client.Triggers
     {
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
-
             if (triggerArgs.Length < 1)
             {
                 client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !echo need to type something dumbass");

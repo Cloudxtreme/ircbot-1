@@ -111,14 +111,14 @@ namespace IrcBot.Client
                 var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
                 var messageService = _container.Resolve<IMessageService>();
 
-                var utcNow = DateTime.UtcNow;
+                var now = DateTime.Now;
 
                 messageService.Insert(new Message
                 {
                     Content = message,
                     Nick = ircEventArgs.Data.Nick,
-                    Created = utcNow,
-                    Modified = utcNow,
+                    Created = now,
+                    Modified = now,
                     ObjectState = ObjectState.Added
                 });
 
@@ -134,7 +134,7 @@ namespace IrcBot.Client
             var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
             var channelActivityService = _container.Resolve<IChannelActivityService>();
 
-            var utcNow = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             unitOfWork.BeginTransaction();
 
@@ -142,8 +142,8 @@ namespace IrcBot.Client
             {
                 Action = UserAction.Join,
                 Nick = joinEventArgs.Who,
-                Created = utcNow,
-                Modified = utcNow,
+                Created = now,
+                Modified = now,
                 ObjectState = ObjectState.Added
             });
 
@@ -156,7 +156,7 @@ namespace IrcBot.Client
             var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
             var channelActivityService = _container.Resolve<IChannelActivityService>();
 
-            var utcNow = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             unitOfWork.BeginTransaction();
 
@@ -164,8 +164,8 @@ namespace IrcBot.Client
             {
                 Action = UserAction.Part,
                 Nick = partEventArgs.Who,
-                Created = utcNow,
-                Modified = utcNow,
+                Created = now,
+                Modified = now,
                 ObjectState = ObjectState.Added
             });
 
@@ -178,7 +178,7 @@ namespace IrcBot.Client
             var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
             var channelActivityService = _container.Resolve<IChannelActivityService>();
 
-            var utcNow = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             unitOfWork.BeginTransaction();
 
@@ -186,8 +186,8 @@ namespace IrcBot.Client
             {
                 Action = UserAction.Quit,
                 Nick = quitEventArgs.Who,
-                Created = utcNow,
-                Modified = utcNow,
+                Created = now,
+                Modified = now,
                 ObjectState = ObjectState.Added
             });
 

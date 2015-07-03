@@ -28,14 +28,14 @@ namespace IrcBot.Client.Triggers
                 return;
             }
 
-            var utcNow = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             var quote = new Quote
             {
                 Author = eventArgs.Data.Nick,
                 Content = String.Join(" ", triggerArgs),
-                Created = utcNow,
-                Modified = utcNow,
+                Created = now,
+                Modified = now,
                 ObjectState = ObjectState.Added
             };
 

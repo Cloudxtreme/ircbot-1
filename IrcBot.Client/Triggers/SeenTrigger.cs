@@ -60,7 +60,7 @@ namespace IrcBot.Client.Triggers
             }
 
             client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                "{0} was last here on {1}", nick, lastPart.Created.ToLocalTime()));
+                "{0} was last here on {1}", nick, lastPart.Created));
         }
     }
 }

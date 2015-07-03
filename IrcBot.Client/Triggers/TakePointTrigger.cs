@@ -47,14 +47,14 @@ namespace IrcBot.Client.Triggers
                 return;
             }
 
-            var utcNow = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             _pointService.Insert(new Point
             {
                 Nick = triggerArgs[0],
                 Value = -1,
-                Created = utcNow,
-                Modified = utcNow,
+                Created = now,
+                Modified = now,
                 ObjectState = ObjectState.Added
             });
 

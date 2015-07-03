@@ -48,6 +48,7 @@ namespace IrcBot.Web.Controllers.Api
         {
             var messages = await _messageService
                 .Query(x => x.Created >= from && x.Created <= to)
+                .OrderBy(o => o.OrderByDescending(x => x.Created))
                 .SelectAsync();
 
             var enumerable = messages as Message[] ?? messages.ToArray();

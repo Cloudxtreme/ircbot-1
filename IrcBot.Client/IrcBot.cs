@@ -38,7 +38,6 @@ namespace IrcBot.Client
 
             _client.OnErrorMessage += ClientOnErrorMessage;
             _client.OnChannelMessage += ClientOnChannelMessage;
-            _client.OnQueryMessage += ClientOnQueryMessage;
             _client.OnJoin += ClientOnJoin;
             _client.OnPart += ClientOnPart;
             _client.OnQuit += ClientOnQuit;
@@ -125,9 +124,6 @@ namespace IrcBot.Client
                 unitOfWork.SaveChanges();
             }
         }
-
-        private void ClientOnQueryMessage(object sender, IrcEventArgs ircEventArgs)
-        { }
 
         private void ClientOnJoin(object sender, JoinEventArgs joinEventArgs)
         {

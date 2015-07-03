@@ -85,7 +85,7 @@ namespace IrcBot.Client
 
             timer.Elapsed += (sender, args) =>
             {
-                var commands = _queuedCommandService.Query().OrderBy(o => o.OrderByDescending(x => x.Created)).Select();
+                var commands = _queuedCommandService.Query().OrderBy(o => o.OrderByDescending(x => x.Created)).Select().ToList();
 
                 foreach (var command in commands)
                 {
@@ -98,7 +98,7 @@ namespace IrcBot.Client
             };
 
             timer.Enabled = false;
-            //timer.Start();
+            timer.Start();
         }
 
         public void Start()

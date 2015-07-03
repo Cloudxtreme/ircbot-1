@@ -33,48 +33,48 @@ namespace IrcBot.Entities.Migrations
             {
                 new User
                 {
-                    Id = 1,
+                    Id = 17,
                     Email = "adamstirtan@gmail.com",
                     Password = PasswordEncryption.Encrypt("Super3vilGenius"),
                     Created = now,
                     Modified = now,
-                    ObjectState = ObjectState.Added
+                    ObjectState = ObjectState.Unchanged
                 },
                 new User
                 {
-                    Id = 2,
+                    Id = 18,
                     Email = "michaeljohndukich@gmail.com",
                     Password = PasswordEncryption.Encrypt("smellslikefarts"),
                     Created = now,
                     Modified = now,
-                    ObjectState = ObjectState.Added
+                    ObjectState = ObjectState.Unchanged
                 },
                 new User
                 {
-                    Id = 3,
+                    Id = 19,
                     Email = "donnycosby@gmail.com",
                     Password = PasswordEncryption.Encrypt("gameboy"),
                     Created = now,
                     Modified = now,
-                    ObjectState = ObjectState.Added
+                    ObjectState = ObjectState.Unchanged
                 },
                 new User
                 {
-                    Id = 4,
+                    Id = 20,
                     Email = "davef@dataforge.on.ca",
                     Password = PasswordEncryption.Encrypt("biglongdong"),
                     Created = now,
                     Modified = now,
-                    ObjectState = ObjectState.Added
+                    ObjectState = ObjectState.Unchanged
                 },
                 new User
                 {
-                    Id = 4,
+                    Id = 21,
                     Email = "kenbayton@gmail.com",
                     Password = PasswordEncryption.Encrypt("boyonfire"),
                     Created = now,
                     Modified = now,
-                    ObjectState = ObjectState.Added
+                    ObjectState = ObjectState.Unchanged
                 }
             });
         }

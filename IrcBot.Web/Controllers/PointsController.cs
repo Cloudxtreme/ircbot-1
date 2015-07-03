@@ -2,6 +2,7 @@
 
 namespace IrcBot.Web.Controllers
 {
+    [Authorize]
     public class PointsController : Controller
     {
         [HttpGet]

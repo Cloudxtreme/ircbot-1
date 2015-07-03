@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
 using Microsoft.Practices.Unity;
 
 using Meebey.SmartIrc4net;
@@ -50,10 +51,12 @@ namespace IrcBot.Client
                 .RegisterType<IRepositoryAsync<ChannelActivity>, Repository<ChannelActivity>>()
                 .RegisterType<IRepositoryAsync<Message>, Repository<Message>>()
                 .RegisterType<IRepositoryAsync<Point>, Repository<Point>>()
+                .RegisterType<IRepositoryAsync<QueuedCommand>, Repository<QueuedCommand>>()
                 .RegisterType<IRepositoryAsync<Quote>, Repository<Quote>>()
                 .RegisterType<IChannelActivityService, ChannelActivityService>()
                 .RegisterType<IMessageService, MessageService>()
                 .RegisterType<IPointService, PointService>()
+                .RegisterType<IQueuedCommandService, QueuedCommandService>()
                 .RegisterType<IQuoteService, QuoteService>();
 
             _triggers = new Dictionary<string, ITrigger>
@@ -69,6 +72,26 @@ namespace IrcBot.Client
                 { "!insult", new InsultTrigger() },
                 { "!seen", new SeenTrigger(_container.Resolve<IChannelActivityService>()) }
             };
+
+            var backgroundWorker = new BackgroundWorker();
+
+            backgroundWorker.DoWork += (sender, args) =>
+            {
+                while (true)
+                {
+                    var service = _container.Resolve<IQueuedCommandService>();
+                    var commands = service.Query().OrderBy(o => o.OrderByDescending(x => x.Created)).Select();
+
+                    foreach (var command in commands)
+                    {
+                        processCommand(_client, command.Command);
+                    }
+
+                    Thread.Sleep(5000);
+                }
+            };
+
+            backgroundWorker.RunWorkerAsync();
         }
 
         public void Start()
@@ -177,6 +200,11 @@ namespace IrcBot.Client
 
             unitOfWork.SaveChanges();
             unitOfWork.Commit();
+        }
+
+        private void processCommand(IrcClient client, string command)
+        {
+            
         }
     }
 }

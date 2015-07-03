@@ -57,6 +57,7 @@
     <Compile Include="Mappings\ChannelActivityMap.cs" />
     <Compile Include="Mappings\MessageMap.cs" />
     <Compile Include="Mappings\PointMap.cs" />
+    <Compile Include="Mappings\QueuedCommandMap.cs" />
     <Compile Include="Mappings\QuoteMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Migrations\201506241807264_Initial_Database_Migration.cs" />
@@ -83,10 +84,15 @@
     <Compile Include="Migrations\201507021733524_Add_ChannelActivity_Table.Designer.cs">
       <DependentUpon>201507021733524_Add_ChannelActivity_Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507031248019_Add_QueuedCommands_Table.cs" />
+    <Compile Include="Migrations\201507031248019_Add_QueuedCommands_Table.Designer.cs">
+      <DependentUpon>201507031248019_Add_QueuedCommands_Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChannelActivity.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Point.cs" />
+    <Compile Include="Models\QueuedCommand.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserAction.cs" />
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507021733524_Add_ChannelActivity_Table.resx">
       <DependentUpon>201507021733524_Add_ChannelActivity_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507031248019_Add_QueuedCommands_Table.resx">
+      <DependentUpon>201507031248019_Add_QueuedCommands_Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

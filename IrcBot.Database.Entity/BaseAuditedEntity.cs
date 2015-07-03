@@ -6,10 +6,10 @@ namespace IrcBot.Database.Entity
     {
         protected BaseAuditedEntity()
         {
-            var now = DateTime.Now;
+            var utcNow = DateTime.UtcNow;
 
-            Created = now;
-            Modified = now;
+            Created = utcNow;
+            Modified = utcNow;
         }
 
         public DateTime Created { get; set; }

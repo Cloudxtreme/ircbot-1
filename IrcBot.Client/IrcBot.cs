@@ -70,6 +70,7 @@ namespace IrcBot.Client
                 { "!points", new PointsTrigger(container.Resolve<IPointService>()) },
                 { "!addquote", new AddQuoteTrigger(container.Resolve<IUnitOfWorkAsync>(), container.Resolve<IQuoteService>()) },
                 { "!quote", new QuoteTrigger(container.Resolve<IQuoteService>()) },
+                { "!quotestats", new QuoteStatsTrigger(container.Resolve<IQuoteService>()) },
                 { "!aolsay", new AolSayTrigger() },
                 { "!echo", new EchoTrigger() },
                 { "!insult", new InsultTrigger() },

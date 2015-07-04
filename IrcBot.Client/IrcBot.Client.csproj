@@ -83,6 +83,7 @@
     <Compile Include="Triggers\EchoTrigger.cs" />
     <Compile Include="Triggers\ITrigger.cs" />
     <Compile Include="Triggers\PointsTrigger.cs" />
+    <Compile Include="Triggers\QuoteStatsTrigger.cs" />
     <Compile Include="Triggers\QuoteTrigger.cs" />
     <Compile Include="Triggers\SeenTrigger.cs" />
     <Compile Include="Triggers\TakePointTrigger.cs" />

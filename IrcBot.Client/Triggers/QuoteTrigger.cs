@@ -64,7 +64,7 @@ namespace IrcBot.Client.Triggers
             }
 
             client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                "{0} (http://cdnidle.azurewebsites.net/quotes/{1})", quote.Content, quote.Id));
+                "{0}: {1} ({2} points)", quote.Id, quote.Content, quote.Points));
         }
     }
 }

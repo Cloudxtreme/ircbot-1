@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201507031248019_Add_QueuedCommands_Table.Designer.cs">
       <DependentUpon>201507031248019_Add_QueuedCommands_Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507061324336_Add_Points_To_Quotes.cs" />
+    <Compile Include="Migrations\201507061324336_Add_Points_To_Quotes.Designer.cs">
+      <DependentUpon>201507061324336_Add_Points_To_Quotes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChannelActivity.cs" />
     <Compile Include="Models\Message.cs" />
@@ -134,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507031248019_Add_QueuedCommands_Table.resx">
       <DependentUpon>201507031248019_Add_QueuedCommands_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507061324336_Add_Points_To_Quotes.resx">
+      <DependentUpon>201507061324336_Add_Points_To_Quotes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

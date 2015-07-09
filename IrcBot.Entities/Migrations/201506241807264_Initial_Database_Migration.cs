@@ -1,6 +1,5 @@
 namespace IrcBot.Entities.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class Initial_Database_Migration : DbMigration

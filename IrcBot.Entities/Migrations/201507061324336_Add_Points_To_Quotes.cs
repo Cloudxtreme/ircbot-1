@@ -1,6 +1,5 @@
 namespace IrcBot.Entities.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class Add_Points_To_Quotes : DbMigration

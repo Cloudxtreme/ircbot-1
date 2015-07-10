@@ -21,9 +21,15 @@ namespace IrcBot.Client.Triggers
         {
             var query = String.Join(" ", triggerArgs);
 
+            int quoteId;
+
             Quote quote;
 
-            if (query.StartsWith("*") && query.EndsWith("*"))
+            if (Int32.TryParse(query, out quoteId))
+            {
+                quote = _quoteService.Find(quoteId);
+            }
+            else if (query.StartsWith("*") && query.EndsWith("*"))
             {
                 quote = _quoteService
                     .Query(x => x.Content.Contains(query.Substring(1, query.Length - 2)))

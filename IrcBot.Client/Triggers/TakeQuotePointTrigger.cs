@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Microsoft.Practices.Unity;
+
 using Meebey.SmartIrc4net;
 
 using IrcBot.Database.Infrastructure;
@@ -13,10 +15,10 @@ namespace IrcBot.Client.Triggers
         private readonly IUnitOfWorkAsync _unitOfWork;
         private readonly IQuoteService _quoteService;
 
-        public TakeQuotePointTrigger(IUnitOfWorkAsync unitOfWork, IQuoteService quoteService)
+        public TakeQuotePointTrigger(IUnityContainer container)
         {
-            _unitOfWork = unitOfWork;
-            _quoteService = quoteService;
+            _unitOfWork = container.Resolve<IUnitOfWorkAsync>();
+            _quoteService = container.Resolve<IQuoteService>();
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)

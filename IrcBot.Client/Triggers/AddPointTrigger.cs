@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
 
+using Microsoft.Practices.Unity;
+
 using Meebey.SmartIrc4net;
 
 using IrcBot.Database.Infrastructure;
 using IrcBot.Entities.Models;
 using IrcBot.Database.UnitOfWork;
 using IrcBot.Service;
+
 
 namespace IrcBot.Client.Triggers
 {
@@ -20,10 +23,10 @@ namespace IrcBot.Client.Triggers
             "rhaydeo", "NukeLaloosh", "mastadonn", "lewzer", "lazerbeast"
         };
 
-        public AddPointTrigger(IUnitOfWorkAsync unitOfWork, IPointService pointService)
+        public AddPointTrigger(IUnityContainer container)
         {
-            _unitOfWork = unitOfWork;
-            _pointService = pointService;
+            _unitOfWork = container.Resolve<IUnitOfWorkAsync>();
+            _pointService = container.Resolve<IPointService>();
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
@@ -47,9 +50,26 @@ namespace IrcBot.Client.Triggers
                 return;
             }
 
+            var nick = triggerArgs[0];
+
+            var lastPoint = _pointService
+                .Query(x => x.Nick == nick)
+                .OrderBy(o => o.OrderByDescending(x => x.Created))
+                .Select()
+                .FirstOrDefault();
+
+            if (lastPoint != null)
+            {
+                if (DateTime.UtcNow.Subtract(lastPoint.Created).TotalSeconds < 60)
+                {
+                    client.SendMessage(SendType.Message, eventArgs.Data.Channel, "You can only give points to someone once a minute");
+                    return;
+                }
+            }
+
             _pointService.Insert(new Point
             {
-                Nick = triggerArgs[0],
+                Nick = nick,
                 Value = 1,
                 ObjectState = ObjectState.Added
             });

@@ -23,13 +23,9 @@ namespace IrcBot.Client
     {
         private const string ChannelName = "#cdnidle";
 
+        private readonly IUnityContainer _container;
         private readonly IrcClient _client;
         private readonly Dictionary<string, ITrigger> _triggers;
-
-        private readonly IUnitOfWorkAsync _unitOfWork;
-        private readonly IMessageService _messageService;
-        private readonly IQueuedCommandService _queuedCommandService;
-        private readonly IChannelActivityService _channelActivityService;
 
         public IrcBot()
         {
@@ -46,9 +42,9 @@ namespace IrcBot.Client
             _client.OnPart += ClientOnPart;
             _client.OnQuit += ClientOnQuit;
 
-            var container = new UnityContainer();
+            _container = new UnityContainer();
 
-            container
+            _container
                 .RegisterType<IDataContextAsync, IrcBotContext>(new ContainerControlledLifetimeManager())
                 .RegisterType<IUnitOfWorkAsync, UnitOfWork>(new ContainerControlledLifetimeManager())
                 .RegisterType<IRepositoryAsync<ChannelActivity>, Repository<ChannelActivity>>()
@@ -65,39 +61,37 @@ namespace IrcBot.Client
             _triggers = new Dictionary<string, ITrigger>
             {
                 { "!ud", new UrbanDictionaryTrigger() },
-                { "!addpoint", new AddPointTrigger(container.Resolve<IUnitOfWorkAsync>(), container.Resolve<IPointService>()) },
-                { "!takepoint", new TakePointTrigger(container.Resolve<IUnitOfWorkAsync>(), container.Resolve<IPointService>()) },
-                { "!points", new PointsTrigger(container.Resolve<IPointService>()) },
-                { "!addquote", new AddQuoteTrigger(container.Resolve<IUnitOfWorkAsync>(), container.Resolve<IQuoteService>()) },
-                { "!quote", new QuoteTrigger(container.Resolve<IQuoteService>()) },
-                { "!addquotepoint", new AddQuotePointTrigger(container.Resolve<IUnitOfWorkAsync>(), container.Resolve<IQuoteService>()) },
-                { "!takequotepoint", new TakeQuotePointTrigger(container.Resolve<IUnitOfWorkAsync>(), container.Resolve<IQuoteService>()) },
-                { "!topquotes", new TopQuotesTrigger(container.Resolve<IQuoteService>()) },
-                { "!quotestats", new QuoteStatsTrigger(container.Resolve<IQuoteService>()) },
+                { "!addpoint", new AddPointTrigger(_container) },
+                { "!takepoint", new TakePointTrigger(_container) },
+                { "!points", new PointsTrigger(_container) },
+                { "!addquote", new AddQuoteTrigger(_container) },
+                { "!quote", new QuoteTrigger(_container) },
+                { "!addquotepoint", new AddQuotePointTrigger(_container) },
+                { "!takequotepoint", new TakeQuotePointTrigger(_container) },
+                { "!topquotes", new TopQuotesTrigger(_container) },
+                { "!quotestats", new QuoteStatsTrigger(_container) },
                 { "!aolsay", new AolSayTrigger() },
                 { "!echo", new EchoTrigger() },
                 { "!insult", new InsultTrigger() },
-                { "!seen", new SeenTrigger(container.Resolve<IChannelActivityService>()) }
+                { "!seen", new SeenTrigger(_container) }
             };
-
-            _unitOfWork = container.Resolve<IUnitOfWorkAsync>();
-            _messageService = container.Resolve<IMessageService>();
-            _queuedCommandService = container.Resolve<IQueuedCommandService>();
-            _channelActivityService = container.Resolve<IChannelActivityService>();
 
             var timer = new System.Timers.Timer(10000);
 
             timer.Elapsed += (sender, args) =>
             {
-                var commands = _queuedCommandService.Query().OrderBy(o => o.OrderByDescending(x => x.Created)).Select().ToList();
+                var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
+                var queuedCommandService = _container.Resolve<IQueuedCommandService>();
+
+                var commands = queuedCommandService.Query().OrderBy(o => o.OrderByDescending(x => x.Created)).Select().ToList();
 
                 foreach (var command in commands)
                 {
                     _client.SendMessage(SendType.Message, ChannelName, command.Command);
 
-                    _queuedCommandService.Delete(command);
-                    
-                    _unitOfWork.SaveChanges();
+                    queuedCommandService.Delete(command);
+
+                    unitOfWork.SaveChanges();
                 }
             };
 
@@ -120,16 +114,19 @@ namespace IrcBot.Client
 
         private void ClientOnChannelMessage(object sender, IrcEventArgs ircEventArgs)
         {
+            var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
+            var messageService = _container.Resolve<IMessageService>();
+
             var message = ircEventArgs.Data.Message;
 
-            _messageService.Insert(new Message
+            messageService.Insert(new Message
             {
                 Content = message,
                 Nick = ircEventArgs.Data.Nick,
                 ObjectState = ObjectState.Added
             });
 
-            _unitOfWork.SaveChanges();
+            unitOfWork.SaveChanges();
 
             if (!message.StartsWith("!"))
             {
@@ -154,38 +151,47 @@ namespace IrcBot.Client
 
         private void ClientOnJoin(object sender, JoinEventArgs joinEventArgs)
         {
-            _channelActivityService.Insert(new ChannelActivity
+            var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
+            var channelActivityService = _container.Resolve<IChannelActivityService>();
+
+            channelActivityService.Insert(new ChannelActivity
             {
                 Action = UserAction.Join,
                 Nick = joinEventArgs.Who,
                 ObjectState = ObjectState.Added
             });
 
-            _unitOfWork.SaveChanges();
+            unitOfWork.SaveChanges();
         }
 
         private void ClientOnPart(object sender, PartEventArgs partEventArgs)
         {
-            _channelActivityService.Insert(new ChannelActivity
+            var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
+            var channelActivityService = _container.Resolve<IChannelActivityService>();
+
+            channelActivityService.Insert(new ChannelActivity
             {
                 Action = UserAction.Part,
                 Nick = partEventArgs.Who,
                 ObjectState = ObjectState.Added
             });
 
-            _unitOfWork.SaveChanges();
+            unitOfWork.SaveChanges();
         }
 
         private void ClientOnQuit(object sender, QuitEventArgs quitEventArgs)
         {
-            _channelActivityService.Insert(new ChannelActivity
+            var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
+            var channelActivityService = _container.Resolve<IChannelActivityService>();
+
+            channelActivityService.Insert(new ChannelActivity
             {
                 Action = UserAction.Quit,
                 Nick = quitEventArgs.Who,
                 ObjectState = ObjectState.Added
             });
 
-            _unitOfWork.SaveChanges();
+            unitOfWork.SaveChanges();
         }
     }
 }

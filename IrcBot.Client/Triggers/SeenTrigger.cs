@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using Microsoft.Practices.Unity;
+
 using Meebey.SmartIrc4net;
 
 using IrcBot.Entities.Models;
@@ -12,9 +14,9 @@ namespace IrcBot.Client.Triggers
     {
         private readonly IChannelActivityService _channelActivityService;
 
-        public SeenTrigger(IChannelActivityService channelActivityService)
+        public SeenTrigger(IUnityContainer container)
         {
-            _channelActivityService = channelActivityService;
+            _channelActivityService = container.Resolve<IChannelActivityService>();
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)

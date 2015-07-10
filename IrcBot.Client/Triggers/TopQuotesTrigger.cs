@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using Microsoft.Practices.Unity;
+
 using Meebey.SmartIrc4net;
 
 using IrcBot.Service;
@@ -11,9 +13,9 @@ namespace IrcBot.Client.Triggers
     {
         private readonly IQuoteService _quoteService;
 
-        public TopQuotesTrigger(IQuoteService quoteService)
+        public TopQuotesTrigger(IUnityContainer container)
         {
-            _quoteService = quoteService;
+            _quoteService = container.Resolve<IQuoteService>();
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)

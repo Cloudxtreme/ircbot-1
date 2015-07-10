@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Microsoft.Practices.Unity;
+
 using Meebey.SmartIrc4net;
 
 using IrcBot.Service;
@@ -12,9 +14,9 @@ namespace IrcBot.Client.Triggers
     {
         private readonly IPointService _pointService;
 
-        public PointsTrigger(IPointService pointService)
+        public PointsTrigger(IUnityContainer container)
         {
-            _pointService = pointService;
+            _pointService = container.Resolve<IPointService>();
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)

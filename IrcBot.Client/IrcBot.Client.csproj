@@ -80,6 +80,7 @@
     <Compile Include="Triggers\AddQuotePointTrigger.cs" />
     <Compile Include="Triggers\AddQuoteTrigger.cs" />
     <Compile Include="Triggers\AolSayTrigger.cs" />
+    <Compile Include="Triggers\IDonScreamTrigger.cs" />
     <Compile Include="Triggers\InsultTrigger.cs" />
     <Compile Include="Triggers\EchoTrigger.cs" />
     <Compile Include="Triggers\ITrigger.cs" />
@@ -95,8 +96,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\cdnidle - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\cdnidle - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\shoryuken.pubxml" />
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>

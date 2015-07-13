@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -21,8 +22,6 @@ namespace IrcBot.Client
 {
     public class IrcBot
     {
-        private const string ChannelName = "#cdnidle";
-
         private readonly IUnityContainer _container;
         private readonly IrcClient _client;
         private readonly Dictionary<string, ITrigger> _triggers;
@@ -88,7 +87,7 @@ namespace IrcBot.Client
 
                 foreach (var command in commands)
                 {
-                    _client.SendMessage(SendType.Message, ChannelName, command.Command);
+                    _client.SendMessage(SendType.Message, ConfigurationManager.AppSettings["Channel"], command.Command);
 
                     queuedCommandService.Delete(command);
 
@@ -102,9 +101,20 @@ namespace IrcBot.Client
 
         public void Start()
         {
-            _client.Connect(new[] { "irc.freenode.net" }, 6667);
-            _client.Login(new [] { "shoryuken", "shoryuken_" }, "https://github.com/adamstirtan/ircbot");
-            _client.RfcJoin(ChannelName);
+            _client.Connect(new[]
+            {
+                ConfigurationManager.AppSettings["Server"]
+            }, Int32.Parse(ConfigurationManager.AppSettings["ServerPort"]));
+
+            _client.Login(new []
+            {
+                ConfigurationManager.AppSettings["Nick"],
+                ConfigurationManager.AppSettings["NickAlt"]
+            }, ConfigurationManager.AppSettings["RealName"]);
+            _client.RfcJoin(ConfigurationManager.AppSettings["Channel"]);
+
+            _client.SendMessage(SendType.Message, "nickserv", String.Format(
+                "identify {0}", ConfigurationManager.AppSettings["NickServPassword"]));
 
             _client.Listen();
             _client.Disconnect();

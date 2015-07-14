@@ -13,6 +13,13 @@ namespace IrcBot.Client.Triggers
 {
     public class AddQuoteTrigger : ITrigger
     {
+        private static readonly string[] SaveMessages =
+        {
+            "Bazinga", "Badabing", "bleep-bloop-bop", "Well that was witty",
+            "trollololol", "lol", "(this better be about don)", "ROFLJO",
+            "buurrrrrppppp", "BWWWAAAAUUUUUGGGHHH", "Level up", "Snap"
+        };
+
         private readonly IUnitOfWorkAsync _unitOfWork;
         private readonly IQuoteService _quoteService;
 
@@ -42,7 +49,7 @@ namespace IrcBot.Client.Triggers
             _unitOfWork.SaveChanges();
 
             client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                "Saved! http://cdnidle.azurewebsites.net/quotes/{0}", quote.Id));
+                "{0}! Quote {1} has been added", SaveMessages[new Random(DateTime.Now.Millisecond).Next(SaveMessages.Length)], quote.Id));
         }
     }
 }

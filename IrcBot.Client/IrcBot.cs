@@ -73,7 +73,8 @@ namespace IrcBot.Client
                 { "!echo", new EchoTrigger() },
                 { "!insult", new InsultTrigger() },
                 { "!seen", new SeenTrigger(_container) },
-                { "!scream", new DonScreamTrigger() }
+                { "!scream", new DonScreamTrigger(false) },
+                { "!SCREAM", new DonScreamTrigger(true) }
             };
 
             var timer = new System.Timers.Timer(10000);

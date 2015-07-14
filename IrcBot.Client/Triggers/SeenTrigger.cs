@@ -61,8 +61,11 @@ namespace IrcBot.Client.Triggers
                 return;
             }
 
+            var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            var utcOffset = timeZoneInfo.GetUtcOffset(lastPart.Created);
+
             client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                "{0} was last here on {1}", nick, lastPart.Created));
+                "{0} was last here on {1}", nick, lastPart.Created.Subtract(utcOffset)));
         }
     }
 }

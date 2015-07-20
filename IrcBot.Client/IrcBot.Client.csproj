@@ -79,6 +79,7 @@
     <Compile Include="Triggers\AddPointTrigger.cs" />
     <Compile Include="Triggers\AddQuotePointTrigger.cs" />
     <Compile Include="Triggers\AddQuoteTrigger.cs" />
+    <Compile Include="Triggers\AolSayGeneratorTrigger.cs" />
     <Compile Include="Triggers\AolSayTrigger.cs" />
     <Compile Include="Triggers\IDonScreamTrigger.cs" />
     <Compile Include="Triggers\InsultTrigger.cs" />

@@ -39,7 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AolSayMessageService.cs" />
     <Compile Include="ChannelActivityService.cs" />
+    <Compile Include="IAolSayMessageService.cs" />
     <Compile Include="IChannelActivityService.cs" />
     <Compile Include="IMessageService.cs" />
     <Compile Include="IPointService.cs" />

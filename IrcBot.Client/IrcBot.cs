@@ -70,6 +70,7 @@ namespace IrcBot.Client
                 { "!topquotes", new TopQuotesTrigger(_container) },
                 { "!quotestats", new QuoteStatsTrigger(_container) },
                 { "!aolsay", new AolSayTrigger() },
+                { "!aolsaygen", new AolSayGeneratorTrigger() },
                 { "!echo", new EchoTrigger() },
                 { "!insult", new InsultTrigger() },
                 { "!seen", new SeenTrigger(_container) },

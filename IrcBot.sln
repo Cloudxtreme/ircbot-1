@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrcBot.Client", "IrcBot.Client\IrcBot.Client.csproj", "{25EBF44D-A2F6-490A-8086-6E2DEEE2F2A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrcBot.Web", "IrcBot.Web\IrcBot.Web.csproj", "{1082DBE0-5D77-4DC0-B634-DD92E47149D4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrcBot.Entities", "IrcBot.Entities\IrcBot.Entities.csproj", "{8A2DFDC3-A0E6-4F2E-86D1-77735A1906C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrcBot.Database", "IrcBot.Database\IrcBot.Database.csproj", "{3E783368-5403-4533-8336-8DD43F972A9D}"
@@ -34,10 +32,6 @@ Global
 		{25EBF44D-A2F6-490A-8086-6E2DEEE2F2A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25EBF44D-A2F6-490A-8086-6E2DEEE2F2A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25EBF44D-A2F6-490A-8086-6E2DEEE2F2A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1082DBE0-5D77-4DC0-B634-DD92E47149D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1082DBE0-5D77-4DC0-B634-DD92E47149D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1082DBE0-5D77-4DC0-B634-DD92E47149D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1082DBE0-5D77-4DC0-B634-DD92E47149D4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A2DFDC3-A0E6-4F2E-86D1-77735A1906C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A2DFDC3-A0E6-4F2E-86D1-77735A1906C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A2DFDC3-A0E6-4F2E-86D1-77735A1906C0}.Release|Any CPU.ActiveCfg = Release|Any CPU

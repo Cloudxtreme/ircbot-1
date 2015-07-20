@@ -54,6 +54,7 @@
     <Compile Include="Dto\LoginAttemptDto.cs" />
     <Compile Include="Dto\MessageDto.cs" />
     <Compile Include="IrcBotContext.cs" />
+    <Compile Include="Mappings\AolSayMessageMap.cs" />
     <Compile Include="Mappings\ChannelActivityMap.cs" />
     <Compile Include="Mappings\MessageMap.cs" />
     <Compile Include="Mappings\PointMap.cs" />
@@ -92,7 +93,12 @@
     <Compile Include="Migrations\201507061324336_Add_Points_To_Quotes.Designer.cs">
       <DependentUpon>201507061324336_Add_Points_To_Quotes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507200055410_Add_AolSayMessages_Table.cs" />
+    <Compile Include="Migrations\201507200055410_Add_AolSayMessages_Table.Designer.cs">
+      <DependentUpon>201507200055410_Add_AolSayMessages_Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AolSayMessage.cs" />
     <Compile Include="Models\ChannelActivity.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Point.cs" />
@@ -141,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507061324336_Add_Points_To_Quotes.resx">
       <DependentUpon>201507061324336_Add_Points_To_Quotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200055410_Add_AolSayMessages_Table.resx">
+      <DependentUpon>201507200055410_Add_AolSayMessages_Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

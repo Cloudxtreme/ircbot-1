@@ -17,6 +17,7 @@ namespace IrcBot.Entities
             : base("name=IrcBotContext")
         { }
 
+        public DbSet<AolSayMessage> AolSayMessages { get; set; }
         public DbSet<ChannelActivity> ChannelActivities { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Point> Points { get; set; }
@@ -26,6 +27,7 @@ namespace IrcBot.Entities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new AolSayMessageMap());
             modelBuilder.Configurations.Add(new ChannelActivityMap());
             modelBuilder.Configurations.Add(new MessageMap());
             modelBuilder.Configurations.Add(new PointMap());

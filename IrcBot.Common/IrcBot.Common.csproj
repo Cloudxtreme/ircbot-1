@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Encryption\PasswordEncryption.cs" />
     <Compile Include="Infrastructure\HttpContextFactory.cs" />
+    <Compile Include="MarkovChains\MarkovChain.cs" />
+    <Compile Include="MarkovChains\MarkovChainNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

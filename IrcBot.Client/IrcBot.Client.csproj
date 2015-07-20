@@ -101,6 +101,10 @@
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IrcBot.Common\IrcBot.Common.csproj">
+      <Project>{eca64665-8b46-4611-b066-76e3b5280a2f}</Project>
+      <Name>IrcBot.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IrcBot.Database.Entity\IrcBot.Database.Entity.csproj">
       <Project>{45D41086-A07E-4907-9334-689BDFA1C203}</Project>
       <Name>IrcBot.Database.Entity</Name>

@@ -38,7 +38,7 @@ namespace IrcBot.Common.MarkovChains
 
                 curNode = curNode.Links[_random.Next(curNode.Links.Count)];
 
-                if (curNode.Value.Equals(null))
+                if (curNode.Value == null)
                 {
                     break;
                 }

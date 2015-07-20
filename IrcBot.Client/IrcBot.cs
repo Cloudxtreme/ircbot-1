@@ -46,11 +46,13 @@ namespace IrcBot.Client
             _container
                 .RegisterType<IDataContextAsync, IrcBotContext>(new ContainerControlledLifetimeManager())
                 .RegisterType<IUnitOfWorkAsync, UnitOfWork>(new ContainerControlledLifetimeManager())
+                .RegisterType<IRepositoryAsync<AolSayMessage>, Repository<AolSayMessage>>()
                 .RegisterType<IRepositoryAsync<ChannelActivity>, Repository<ChannelActivity>>()
                 .RegisterType<IRepositoryAsync<Message>, Repository<Message>>()
                 .RegisterType<IRepositoryAsync<Point>, Repository<Point>>()
                 .RegisterType<IRepositoryAsync<QueuedCommand>, Repository<QueuedCommand>>()
                 .RegisterType<IRepositoryAsync<Quote>, Repository<Quote>>()
+                .RegisterType<IAolSayMessageService, AolSayMessageService>()
                 .RegisterType<IChannelActivityService, ChannelActivityService>()
                 .RegisterType<IMessageService, MessageService>()
                 .RegisterType<IPointService, PointService>()
@@ -69,7 +71,7 @@ namespace IrcBot.Client
                 { "!takequotepoint", new TakeQuotePointTrigger(_container) },
                 { "!topquotes", new TopQuotesTrigger(_container) },
                 { "!quotestats", new QuoteStatsTrigger(_container) },
-                { "!aolsay", new AolSayTrigger() },
+                { "!aolsay", new AolSayTrigger(_container) },
                 { "!aolsaygen", new AolSayGeneratorTrigger() },
                 { "!echo", new EchoTrigger() },
                 { "!insult", new InsultTrigger() },

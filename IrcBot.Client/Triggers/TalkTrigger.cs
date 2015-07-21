@@ -73,7 +73,7 @@ namespace IrcBot.Client.Triggers
             do
             {
                 words = markovChain.GenerateSequence().ToArray();
-            } while (words.Length < 3 && trials++ < 10);
+            } while (words.Length < 8 && trials++ < 30);
 
             return string.Join(" ", words);
         }

@@ -91,6 +91,7 @@
     <Compile Include="Triggers\SeenTrigger.cs" />
     <Compile Include="Triggers\TakePointTrigger.cs" />
     <Compile Include="Triggers\TakeQuotePointTrigger.cs" />
+    <Compile Include="Triggers\TalkTrigger.cs" />
     <Compile Include="Triggers\TopQuotesTrigger.cs" />
     <Compile Include="Triggers\UrbanDictionaryTrigger.cs" />
   </ItemGroup>

@@ -77,7 +77,8 @@ namespace IrcBot.Client
                 { "!insult", new InsultTrigger() },
                 { "!seen", new SeenTrigger(_container) },
                 { "!scream", new DonScreamTrigger(false) },
-                { "!SCREAM", new DonScreamTrigger(true) }
+                { "!SCREAM", new DonScreamTrigger(true) },
+                { "!talk", new TalkTrigger(_container) }
             };
 
             var timer = new System.Timers.Timer(10000);

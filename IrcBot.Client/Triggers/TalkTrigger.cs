@@ -11,9 +11,9 @@ using IrcBot.Service;
 
 namespace IrcBot.Client.Triggers
 {
-    public class AolSayGeneratorTrigger : ITrigger
+    public class TalkTrigger : ITrigger
     {
-        private readonly IAolSayMessageService _aolSayMessageService;
+        private readonly IMessageService _messageService;
 
         private readonly char[] _sentenceSeparators =
         {
@@ -22,21 +22,23 @@ namespace IrcBot.Client.Triggers
 
         private readonly Regex _cleanWordRegex = new Regex(@"[()\[\]{}'""`~]");
 
-        public AolSayGeneratorTrigger(IUnityContainer container)
+        public TalkTrigger(IUnityContainer container)
         {
-            _aolSayMessageService = container.Resolve<IAolSayMessageService>();
+            _messageService = container.Resolve<IMessageService>();
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
-            if (triggerArgs.Length != 0)
+            if (triggerArgs.Length != 1)
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !aolsaygen");
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !talk <nick>");
                 return;
             }
 
+            var nick = triggerArgs[0];
+
             var markovChain = new MarkovChain<string>();
-            var messages = _aolSayMessageService.Query().Select();
+            var messages = _messageService.Query(x => x.Nick == nick).Select();
 
             foreach (var message in messages)
             {
@@ -46,7 +48,7 @@ namespace IrcBot.Client.Triggers
                 {
                     string lastWord = null;
 
-                    foreach (var word in sentence.Split(' ').Select(x => _cleanWordRegex.Replace(x, string.Empty)).Where(word => word.Length != 0))
+                    foreach (var word in sentence.Split(' ').Select(x => _cleanWordRegex.Replace(x, String.Empty)).Where(word => word.Length != 0))
                     {
                         markovChain.Train(lastWord, word);
                         lastWord = word;
@@ -58,11 +60,12 @@ namespace IrcBot.Client.Triggers
 
             if (markovChain.Nodes.Count > 0)
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, GenerateRandomAolSayMessage(markovChain));
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel,
+                    $"<@{nick}> {GenerateRandomMessage(markovChain)}");
             }
         }
 
-        private static string GenerateRandomAolSayMessage(MarkovChain<string> markovChain)
+        private static string GenerateRandomMessage(MarkovChain<string> markovChain)
         {
             var trials = 0;
             string[] words;

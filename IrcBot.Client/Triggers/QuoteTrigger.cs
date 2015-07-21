@@ -21,13 +21,13 @@ namespace IrcBot.Client.Triggers
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
-            var query = String.Join(" ", triggerArgs);
+            var query = string.Join(" ", triggerArgs);
 
             int quoteId;
 
             Quote quote;
 
-            if (Int32.TryParse(query, out quoteId))
+            if (int.TryParse(query, out quoteId))
             {
                 quote = _quoteService.Find(quoteId);
             }
@@ -55,6 +55,14 @@ namespace IrcBot.Client.Triggers
                     .Select()
                     .FirstOrDefault();
             }
+            else if (query.Length > 0)
+            {
+                quote = _quoteService
+                    .Query(x => x.Content.Equals(query))
+                    .OrderBy(x => x.OrderBy(o => Guid.NewGuid()))
+                    .Select()
+                    .FirstOrDefault();
+            }
             else
             {
                 quote = _quoteService
@@ -66,13 +74,12 @@ namespace IrcBot.Client.Triggers
 
             if (quote == null)
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                    "Nothing found for {0}", query));
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"Nothing found for {query}");
                 return;
             }
 
-            client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                "{0}: {1} ({2} points)", quote.Id, quote.Content, quote.Points));
+            client.SendMessage(SendType.Message, eventArgs.Data.Channel,
+                $"{quote.Id}: {quote.Content} ({quote.Points} points)");
         }
     }
 }

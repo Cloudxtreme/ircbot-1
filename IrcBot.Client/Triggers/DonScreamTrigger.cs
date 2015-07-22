@@ -3,17 +3,12 @@ using System.Text;
 
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Triggers.Contracts;
+
 namespace IrcBot.Client.Triggers
 {
-    public class DonScreamTrigger : ITrigger
+    public class DonScreamTrigger : IDonScreamTrigger
     {
-        private readonly bool _intense;
-
-        public DonScreamTrigger(bool intense)
-        {
-            _intense = intense;
-        }
-
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
             var random = new Random(DateTime.Now.Millisecond);
@@ -21,27 +16,27 @@ namespace IrcBot.Client.Triggers
 
             stringBuilder.Append("B");
 
-            for (int i = 0, n = random.Next(1, _intense ? 8 : 4); i < n; i++)
+            for (int i = 0, n = random.Next(1, 4); i < n; i++)
             {
                 stringBuilder.Append("W");
             }
 
-            for (int i = 0, n = random.Next(1, _intense ? 16 : 8); i < n; i++)
+            for (int i = 0, n = random.Next(1, 8); i < n; i++)
             {
                 stringBuilder.Append("A");
             }
 
-            for (int i = 0, n = random.Next(1, _intense ? 16 : 8); i < n; i++)
+            for (int i = 0, n = random.Next(1, 8); i < n; i++)
             {
                 stringBuilder.Append("U");
             }
 
-            for (int i = 0, n = random.Next(1, _intense ? 16 : 8); i < n; i++)
+            for (int i = 0, n = random.Next(1, 8); i < n; i++)
             {
                 stringBuilder.Append("G");
             }
 
-            for (int i = 0, n = random.Next(1, _intense ? 8 : 4); i < n; i++)
+            for (int i = 0, n = random.Next(1, 4); i < n; i++)
             {
                 stringBuilder.Append("H");
             }

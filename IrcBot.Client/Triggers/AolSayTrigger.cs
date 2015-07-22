@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Linq;
 
-using Microsoft.Practices.Unity;
-
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Triggers.Contracts;
 using IrcBot.Service;
 
 namespace IrcBot.Client.Triggers
 {
-    public class AolSayTrigger : ITrigger
+    public class AolSayTrigger : IAolSayTrigger
     {
         private readonly IAolSayMessageService _aolSayMessageService;
 
-        public AolSayTrigger(IUnityContainer container)
+        public AolSayTrigger(IAolSayMessageService aolSayMessageService)
         {
-            _aolSayMessageService = container.Resolve<IAolSayMessageService>();
+            _aolSayMessageService = aolSayMessageService;
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)

@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
 
-using Microsoft.Practices.Unity;
-
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Triggers.Contracts;
 using IrcBot.Database.Infrastructure;
 using IrcBot.Database.UnitOfWork;
 using IrcBot.Entities.Models;
@@ -12,71 +11,64 @@ using IrcBot.Service;
 
 namespace IrcBot.Client.Triggers
 {
-    public sealed class TakePointTrigger : ITrigger
+    public sealed class TakePointTrigger : ITakePointTrigger
     {
         private readonly IUnitOfWorkAsync _unitOfWork;
         private readonly IPointService _pointService;
+        private readonly IQuoteService _quoteService;
 
-        private readonly string[] _knownNicks =
+        public TakePointTrigger(IUnitOfWorkAsync unitOfWork, IPointService pointService, IQuoteService quoteService)
         {
-            "rhaydeo", "NukeLaloosh", "mastadonn", "lewzer", "lazerbeast"
-        };
-
-        public TakePointTrigger(IUnityContainer container)
-        {
-            _unitOfWork = container.Resolve<IUnitOfWorkAsync>();
-            _pointService = container.Resolve<IPointService>();
+            _unitOfWork = unitOfWork;
+            _pointService = pointService;
+            _quoteService = quoteService;
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
             if (triggerArgs.Length != 1)
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !takepoint <nick>");
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "Syntax: !takepoint <quote number>");
                 return;
             }
 
-            if (triggerArgs[0] == eventArgs.Data.Nick)
+            int quoteId;
+
+            if (!int.TryParse(triggerArgs[0], out quoteId))
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, "You can't take points from yourself");
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"{eventArgs.Data.Nick}: that's not a quote number");
                 return;
             }
 
-            if (!_knownNicks.Contains(triggerArgs[0]))
+            var quote = _quoteService.Find(quoteId);
+
+            if (quote == null)
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                    "Points can only be taken from: {0}", String.Join(", ", _knownNicks.OrderBy(x => x))));
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"{eventArgs.Data.Nick}: quote number {quoteId} does not exist");
                 return;
             }
 
-            var nick = triggerArgs[0];
-
-            var lastPoint = _pointService
-                .Query(x => x.Nick == nick)
-                .OrderBy(o => o.OrderByDescending(x => x.Created))
-                .Select()
-                .FirstOrDefault();
-
-            if (lastPoint != null)
-            {
-                if (DateTime.UtcNow.Subtract(lastPoint.Created).TotalSeconds < 60)
-                {
-                    client.SendMessage(SendType.Message, eventArgs.Data.Channel, "You can only take points from someone once a minute");
-                    return;
-                }
-            }
+            var nick = quote.Author.Replace("_", "").Replace("-", "").Replace("\\", "");
+            var utcNow = DateTime.UtcNow;
 
             _pointService.Insert(new Point
             {
-                Nick = triggerArgs[0],
-                Value = -1,
+                Nick = nick,
+                Value = 1,
+                Created = utcNow,
+                Modified = utcNow,
                 ObjectState = ObjectState.Added
             });
 
             _unitOfWork.SaveChanges();
 
-            client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                "{0} has {1} points", triggerArgs[0], _pointService.Count(triggerArgs[0])));
+            var points = _pointService
+                .Query(x => x.Nick == nick)
+                .Select()
+                .Sum(x => x.Value);
+
+            client.SendMessage(SendType.Message, eventArgs.Data.Channel,
+                $"{nick} now has {points} points");
         }
     }
 }

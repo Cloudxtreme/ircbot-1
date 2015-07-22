@@ -1,6 +1,6 @@
 ﻿using Meebey.SmartIrc4net;
 
-namespace IrcBot.Client.Triggers
+namespace IrcBot.Client.Triggers.Contracts
 {
     public interface ITrigger
     {

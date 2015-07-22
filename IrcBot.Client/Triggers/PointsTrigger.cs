@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-
-using Microsoft.Practices.Unity;
 
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Triggers.Contracts;
 using IrcBot.Service;
 
 namespace IrcBot.Client.Triggers
 {
-    public class PointsTrigger : ITrigger
+    public class PointsTrigger : IPointsTrigger
     {
         private readonly IPointService _pointService;
 
-        public PointsTrigger(IUnityContainer container)
+        public PointsTrigger(IPointService pointService)
         {
-            _pointService = container.Resolve<IPointService>();
+            _pointService = pointService;
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
@@ -42,7 +40,7 @@ namespace IrcBot.Client.Triggers
 
             foreach (var kvp in dictionary.OrderByDescending(x => x.Value))
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format("{0}: {1}", kvp.Key, kvp.Value));
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"{kvp.Key}: {kvp.Value}");
             }
         }
     }

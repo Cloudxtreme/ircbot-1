@@ -1,26 +1,24 @@
-﻿using System;
-using System.Linq;
-
-using Microsoft.Practices.Unity;
+﻿using System.Linq;
 
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Triggers.Contracts;
 using IrcBot.Service;
 
 namespace IrcBot.Client.Triggers
 {
-    public class QuoteStatsTrigger : ITrigger
+    public class QuoteStatsTrigger : IQuoteStatsTrigger
     {
         private readonly IQuoteService _quoteService;
 
-        public QuoteStatsTrigger(IUnityContainer container)
+        public QuoteStatsTrigger(IQuoteService quoteService)
         {
-            _quoteService = container.Resolve<IQuoteService>();
+            _quoteService = quoteService;
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
-            var query = String.Join(" ", triggerArgs);
+            var query = string.Join(" ", triggerArgs);
 
             int quotes;
 
@@ -45,7 +43,7 @@ namespace IrcBot.Client.Triggers
                     .Select()
                     .Count();
             }
-            else if (!String.IsNullOrEmpty(query))
+            else if (!string.IsNullOrEmpty(query))
             {
                 quotes = _quoteService
                     .Query(x => x.Content == query)
@@ -54,24 +52,20 @@ namespace IrcBot.Client.Triggers
             }
             else
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                    "There are {0} quotes", _quoteService.Query().Select().Count()));
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"There are {_quoteService.Query().Select().Count()} quotes");
                 return;
             }
 
             switch (quotes)
             {
                 case 0:
-                    client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                        "There are no quotes matching {0}", query));
+                    client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"There are no quotes matching {query}");
                     break;
                 case 1:
-                    client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                        "There is 1 quote matching {0}", query));
+                    client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"There is 1 quote matching {query}");
                     break;
                 default:
-                    client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                        "There are {0} quotes matching {1}", quotes, query));
+                    client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"There are {quotes} quotes matching {query}");
                     break;
             }
         }

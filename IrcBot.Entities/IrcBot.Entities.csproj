@@ -97,6 +97,10 @@
     <Compile Include="Migrations\201507200055410_Add_AolSayMessages_Table.Designer.cs">
       <DependentUpon>201507200055410_Add_AolSayMessages_Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507212346205_Remove_Points_From_Quotes.cs" />
+    <Compile Include="Migrations\201507212346205_Remove_Points_From_Quotes.Designer.cs">
+      <DependentUpon>201507212346205_Remove_Points_From_Quotes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AolSayMessage.cs" />
     <Compile Include="Models\ChannelActivity.cs" />
@@ -150,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507200055410_Add_AolSayMessages_Table.resx">
       <DependentUpon>201507200055410_Add_AolSayMessages_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507212346205_Remove_Points_From_Quotes.resx">
+      <DependentUpon>201507212346205_Remove_Points_From_Quotes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

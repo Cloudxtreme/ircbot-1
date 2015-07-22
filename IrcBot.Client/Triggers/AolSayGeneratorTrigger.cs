@@ -1,30 +1,20 @@
-﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-using Microsoft.Practices.Unity;
+﻿using System.Linq;
 
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Triggers.Contracts;
 using IrcBot.Common.MarkovChains;
 using IrcBot.Service;
 
 namespace IrcBot.Client.Triggers
 {
-    public class AolSayGeneratorTrigger : ITrigger
+    public class AolSayGeneratorTrigger : BaseTalkTrigger, IAolSayGeneratorTrigger
     {
         private readonly IAolSayMessageService _aolSayMessageService;
 
-        private readonly char[] _sentenceSeparators =
+        public AolSayGeneratorTrigger(IAolSayMessageService aolSayMessageService)
         {
-            '.', '!', '?', ',', ';', ':'
-        };
-
-        private readonly Regex _cleanWordRegex = new Regex(@"[()\[\]{}'""`~]");
-
-        public AolSayGeneratorTrigger(IUnityContainer container)
-        {
-            _aolSayMessageService = container.Resolve<IAolSayMessageService>();
+            _aolSayMessageService = aolSayMessageService;
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
@@ -40,13 +30,13 @@ namespace IrcBot.Client.Triggers
 
             foreach (var message in messages)
             {
-                var sentences = message.Content.Split(_sentenceSeparators);
+                var sentences = message.Content.Split(SentenceSeparators);
 
                 foreach (var sentence in sentences)
                 {
                     string lastWord = null;
 
-                    foreach (var word in sentence.Split(' ').Select(x => _cleanWordRegex.Replace(x, string.Empty)).Where(word => word.Length != 0))
+                    foreach (var word in sentence.Split(' ').Select(x => CleanWordRegex.Replace(x, string.Empty)).Where(word => word.Length != 0))
                     {
                         markovChain.Train(lastWord, word);
                         lastWord = word;

@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Linq;
 
-using Microsoft.Practices.Unity;
-
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Triggers.Contracts;
 using IrcBot.Entities.Models;
 using IrcBot.Service;
 
 namespace IrcBot.Client.Triggers
 {
-    public class SeenTrigger : ITrigger
+    public class SeenTrigger : ISeenTrigger
     {
         private readonly IChannelActivityService _channelActivityService;
 
-        public SeenTrigger(IUnityContainer container)
+        public SeenTrigger(IChannelActivityService channelActivityService)
         {
-            _channelActivityService = container.Resolve<IChannelActivityService>();
+            _channelActivityService = channelActivityService;
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
@@ -27,11 +26,11 @@ namespace IrcBot.Client.Triggers
                 return;
             }
 
-            var nick = String.Join(" ", triggerArgs);
+            var nick = string.Join(" ", triggerArgs);
 
             if (client.GetChannel(eventArgs.Data.Channel).Users.Contains(nick))
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format("{0} is here now", nick));
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"{nick} is here now");
                 return;
             }
 
@@ -51,21 +50,21 @@ namespace IrcBot.Client.Triggers
 
             if (lastJoin == null)
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format("{0} has never been here", nick));
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"{nick} has never been here");
                 return;
             }
 
             if (lastPart == null)
             {
-                client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format("I've never seen {0} leave", nick));
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"I've never seen {nick} leave");
                 return;
             }
 
             var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             var utcOffset = timeZoneInfo.GetUtcOffset(lastPart.Created);
 
-            client.SendMessage(SendType.Message, eventArgs.Data.Channel, String.Format(
-                "{0} was last here on {1}", nick, lastPart.Created.Subtract(utcOffset)));
+            client.SendMessage(SendType.Message, eventArgs.Data.Channel,
+                $"{nick} was last here on {lastPart.Created.Add(utcOffset)}");
         }
     }
 }

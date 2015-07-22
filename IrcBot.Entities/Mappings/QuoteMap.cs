@@ -22,9 +22,6 @@ namespace IrcBot.Entities.Mappings
             Property(x => x.Content)
                 .IsRequired();
 
-            Property(x => x.Points)
-                .IsRequired();
-
             Property(x => x.Created)
                 .IsRequired();
 
@@ -36,7 +33,6 @@ namespace IrcBot.Entities.Mappings
             Property(x => x.Id).HasColumnName("Id");
             Property(x => x.Author).HasColumnName("Author");
             Property(x => x.Content).HasColumnName("Content");
-            Property(x => x.Points).HasColumnName("Points");
             Property(x => x.Created).HasColumnName("Created");
             Property(x => x.Modified).HasColumnName("Modified");
         }

@@ -1,30 +1,20 @@
-﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-using Microsoft.Practices.Unity;
+﻿using System.Linq;
 
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Triggers.Contracts;
 using IrcBot.Common.MarkovChains;
 using IrcBot.Service;
 
 namespace IrcBot.Client.Triggers
 {
-    public class TalkTrigger : ITrigger
+    public class TalkTrigger : BaseTalkTrigger, ITalkTrigger
     {
         private readonly IMessageService _messageService;
 
-        private readonly char[] _sentenceSeparators =
+        public TalkTrigger(IMessageService messageService)
         {
-            '.', '!', '?', ',', ';', ':'
-        };
-
-        private readonly Regex _cleanWordRegex = new Regex(@"[()\[\]{}'""`~]");
-
-        public TalkTrigger(IUnityContainer container)
-        {
-            _messageService = container.Resolve<IMessageService>();
+            _messageService = messageService; 
         }
 
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
@@ -42,13 +32,13 @@ namespace IrcBot.Client.Triggers
 
             foreach (var message in messages)
             {
-                var sentences = message.Content.Split(_sentenceSeparators);
+                var sentences = message.Content.Split(SentenceSeparators);
 
                 foreach (var sentence in sentences)
                 {
                     string lastWord = null;
 
-                    foreach (var word in sentence.Split(' ').Select(x => _cleanWordRegex.Replace(x, String.Empty)).Where(word => word.Length != 0))
+                    foreach (var word in sentence.Split(' ').Select(x => CleanWordRegex.Replace(x, string.Empty)).Where(word => word.Length != 0))
                     {
                         markovChain.Train(lastWord, word);
                         lastWord = word;

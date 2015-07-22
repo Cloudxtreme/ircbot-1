@@ -1,13 +1,14 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
 using Meebey.SmartIrc4net;
 
+using IrcBot.Client.Triggers.Contracts;
+
 namespace IrcBot.Client.Triggers
 {
-    public class UrbanDictionaryTrigger : ITrigger
+    public class UrbanDictionaryTrigger : IUrbanDictionaryTrigger
     {
         public void Execute(IrcClient client, IrcEventArgs eventArgs, string[] triggerArgs)
         {
@@ -17,8 +18,8 @@ namespace IrcBot.Client.Triggers
                 return;
             }
 
-            var query = String.Join(" ", triggerArgs);
-            var request = WebRequest.Create(String.Format("http://api.urbandictionary.com/v0/define?term={0}", query)) as HttpWebRequest;
+            var query = string.Join(" ", triggerArgs);
+            var request = WebRequest.Create($"http://api.urbandictionary.com/v0/define?term={query}") as HttpWebRequest;
 
             if (request == null)
             {

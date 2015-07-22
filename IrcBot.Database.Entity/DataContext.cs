@@ -10,23 +10,18 @@ namespace IrcBot.Database.Entity
 {
     public class DataContext : DbContext, IDataContextAsync
     {
-        private readonly Guid _instanceId;
-
         private bool _disposed;
 
         public DataContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
-            _instanceId = Guid.NewGuid();
+            InstanceId = Guid.NewGuid();
 
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
 
-        public Guid InstanceId
-        {
-            get { return _instanceId; }
-        }
+        public Guid InstanceId { get; }
 
         public override int SaveChanges()
         {

@@ -12,18 +12,14 @@ namespace IrcBot.Common.MarkovChains
         private readonly Random _random = new Random();
 
         private readonly List<MarkovChainNode<T>> _nodes;
-        private readonly ReadOnlyCollection<MarkovChainNode<T>> _nodesReadOnly;
 
         public MarkovChain()
         {
             _nodes = new List<MarkovChainNode<T>>();
-            _nodesReadOnly = new ReadOnlyCollection<MarkovChainNode<T>>(_nodes);
+            Nodes = new ReadOnlyCollection<MarkovChainNode<T>>(_nodes);
         }
 
-        public ReadOnlyCollection<MarkovChainNode<T>> Nodes
-        {
-            get { return _nodesReadOnly; }
-        }
+        public ReadOnlyCollection<MarkovChainNode<T>> Nodes { get; }
 
         public IEnumerable<T> GenerateSequence()
         {

@@ -57,6 +57,8 @@ namespace IrcBot.Client.Triggers
 
             _quoteService.Update(quote);
             _unitOfWork.SaveChanges();
+
+            client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"Quote {quoteId} has been claimed");
         }
     }
 }

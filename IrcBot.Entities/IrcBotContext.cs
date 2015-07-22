@@ -21,7 +21,6 @@ namespace IrcBot.Entities
         public DbSet<ChannelActivity> ChannelActivities { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Point> Points { get; set; }
-        public DbSet<QueuedCommand> QueuedCommands { get; set; }
         public DbSet<Quote> Quotes { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -31,7 +30,6 @@ namespace IrcBot.Entities
             modelBuilder.Configurations.Add(new ChannelActivityMap());
             modelBuilder.Configurations.Add(new MessageMap());
             modelBuilder.Configurations.Add(new PointMap());
-            modelBuilder.Configurations.Add(new QueuedCommandMap());
             modelBuilder.Configurations.Add(new QuoteMap());
             modelBuilder.Configurations.Add(new UserMap());
         }

@@ -58,7 +58,6 @@
     <Compile Include="Mappings\ChannelActivityMap.cs" />
     <Compile Include="Mappings\MessageMap.cs" />
     <Compile Include="Mappings\PointMap.cs" />
-    <Compile Include="Mappings\QueuedCommandMap.cs" />
     <Compile Include="Mappings\QuoteMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Migrations\201506241807264_Initial_Database_Migration.cs" />
@@ -101,12 +100,15 @@
     <Compile Include="Migrations\201507212346205_Remove_Points_From_Quotes.Designer.cs">
       <DependentUpon>201507212346205_Remove_Points_From_Quotes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507220205562_Remove_Queued_Command_Table.cs" />
+    <Compile Include="Migrations\201507220205562_Remove_Queued_Command_Table.Designer.cs">
+      <DependentUpon>201507220205562_Remove_Queued_Command_Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AolSayMessage.cs" />
     <Compile Include="Models\ChannelActivity.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Point.cs" />
-    <Compile Include="Models\QueuedCommand.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserAction.cs" />
@@ -157,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507212346205_Remove_Points_From_Quotes.resx">
       <DependentUpon>201507212346205_Remove_Points_From_Quotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507220205562_Remove_Queued_Command_Table.resx">
+      <DependentUpon>201507220205562_Remove_Queued_Command_Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

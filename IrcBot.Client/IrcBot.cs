@@ -50,6 +50,7 @@ namespace IrcBot.Client
                 .RegisterType<IAddQuoteTrigger, AddQuoteTrigger>()
                 .RegisterType<IAolSayTrigger, AolSayTrigger>()
                 .RegisterType<IAolSayGeneratorTrigger, AolSayGeneratorTrigger>()
+                .RegisterType<IClaimQuoteTrigger, ClaimQuoteTrigger>()
                 .RegisterType<IDonLoudScreamTrigger, DonLoudScreamTrigger>()
                 .RegisterType<IDonScreamTrigger, DonScreamTrigger>()
                 .RegisterType<IEchoTrigger, EchoTrigger>()
@@ -65,13 +66,11 @@ namespace IrcBot.Client
                 .RegisterType<IRepositoryAsync<ChannelActivity>, Repository<ChannelActivity>>()
                 .RegisterType<IRepositoryAsync<Message>, Repository<Message>>()
                 .RegisterType<IRepositoryAsync<Point>, Repository<Point>>()
-                .RegisterType<IRepositoryAsync<QueuedCommand>, Repository<QueuedCommand>>()
                 .RegisterType<IRepositoryAsync<Quote>, Repository<Quote>>()
                 .RegisterType<IAolSayMessageService, AolSayMessageService>()
                 .RegisterType<IChannelActivityService, ChannelActivityService>()
                 .RegisterType<IMessageService, MessageService>()
                 .RegisterType<IPointService, PointService>()
-                .RegisterType<IQueuedCommandService, QueuedCommandService>()
                 .RegisterType<IQuoteService, QuoteService>();
 
             _triggers = new Dictionary<string, Type>
@@ -80,6 +79,7 @@ namespace IrcBot.Client
                 { "!addquote", typeof (AddQuoteTrigger) },
                 { "!aolsaygen", typeof (AolSayGeneratorTrigger) },
                 { "!aolsay", typeof (AolSayTrigger) },
+                { "!claim", typeof (ClaimQuoteTrigger) },
                 { "!SCREAM", typeof (DonLoudScreamTrigger) },
                 { "!scream", typeof (DonScreamTrigger) },
                 { "!echo", typeof (EchoTrigger) },
@@ -92,28 +92,6 @@ namespace IrcBot.Client
                 { "!talk", typeof (TalkTrigger) },
                 { "!ud", typeof (UrbanDictionaryTrigger) }
             };
-
-            var timer = new System.Timers.Timer(10000);
-
-            timer.Elapsed += (sender, args) =>
-            {
-                var unitOfWork = _container.Resolve<IUnitOfWorkAsync>();
-                var queuedCommandService = _container.Resolve<IQueuedCommandService>();
-
-                var commands = queuedCommandService.Query().OrderBy(o => o.OrderByDescending(x => x.Created)).Select().ToList();
-
-                foreach (var command in commands)
-                {
-                    _client.SendMessage(SendType.Message, ConfigurationManager.AppSettings["Channel"], command.Command);
-
-                    queuedCommandService.Delete(command);
-
-                    unitOfWork.SaveChanges();
-                }
-            };
-
-            timer.Enabled = false;
-            timer.Start();
         }
 
         public void Start()

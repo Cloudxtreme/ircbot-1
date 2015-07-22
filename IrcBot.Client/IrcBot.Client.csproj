@@ -81,9 +81,11 @@
     <Compile Include="Triggers\AolSayGeneratorTrigger.cs" />
     <Compile Include="Triggers\AolSayTrigger.cs" />
     <Compile Include="Triggers\BaseTalkTrigger.cs" />
+    <Compile Include="Triggers\ClaimQuoteTrigger.cs" />
     <Compile Include="Triggers\Contracts\IAddPointTrigger.cs" />
     <Compile Include="Triggers\Contracts\IAolSayGeneratorTrigger.cs" />
     <Compile Include="Triggers\Contracts\IAolSayTrigger.cs" />
+    <Compile Include="Triggers\Contracts\IClaimQuoteTrigger.cs" />
     <Compile Include="Triggers\DonLoudScreamTrigger.cs" />
     <Compile Include="Triggers\DonScreamTrigger.cs" />
     <Compile Include="Triggers\Contracts\IEchoTrigger.cs" />

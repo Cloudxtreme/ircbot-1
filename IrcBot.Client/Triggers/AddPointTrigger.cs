@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using Meebey.SmartIrc4net;
 
@@ -49,6 +48,13 @@ namespace IrcBot.Client.Triggers
             }
 
             var nick = quote.Author.Replace("_", "").Replace("-", "").Replace("\\", "");
+
+            if (nick == "Unknown")
+            {
+                client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"Quote {quoteId} was imported, use !claim {quoteId} if it is yours");
+                return;
+            }
+
             var utcNow = DateTime.UtcNow;
 
             _pointService.Insert(new Point
@@ -62,13 +68,7 @@ namespace IrcBot.Client.Triggers
 
             _unitOfWork.SaveChanges();
 
-            var points = _pointService
-                .Query(x => x.Nick == nick)
-                .Select()
-                .Sum(x => x.Value);
-
-            client.SendMessage(SendType.Message, eventArgs.Data.Channel,
-                $"{nick} now has {points} points");
+            client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"Point added for quote {quoteId}");
         }
     }
 }

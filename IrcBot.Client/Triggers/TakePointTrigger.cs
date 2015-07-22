@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 
 using Meebey.SmartIrc4net;
 
@@ -62,13 +61,7 @@ namespace IrcBot.Client.Triggers
 
             _unitOfWork.SaveChanges();
 
-            var points = _pointService
-                .Query(x => x.Nick == nick)
-                .Select()
-                .Sum(x => x.Value);
-
-            client.SendMessage(SendType.Message, eventArgs.Data.Channel,
-                $"{nick} now has {points} points");
+            client.SendMessage(SendType.Message, eventArgs.Data.Channel, $"Point taken for quote {quoteId}");
         }
     }
 }

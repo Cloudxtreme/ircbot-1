@@ -96,6 +96,8 @@
     <Compile Include="Triggers\Contracts\IAddQuoteTrigger.cs" />
     <Compile Include="Triggers\GoogleImageSearchTrigger.cs" />
     <Compile Include="Triggers\Contracts\IGoogleImageSearchTrigger.cs" />
+    <Compile Include="Triggers\GoogleNewsSearchTrigger.cs" />
+    <Compile Include="Triggers\Contracts\IGoogleNewsSearchTrigger.cs" />
     <Compile Include="Triggers\InsultTrigger.cs" />
     <Compile Include="Triggers\EchoTrigger.cs" />
     <Compile Include="Triggers\Contracts\ITakePointTrigger.cs" />

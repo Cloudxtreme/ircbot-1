@@ -64,6 +64,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,6 +94,8 @@
     <Compile Include="Triggers\Contracts\IDonLoudScreamTrigger.cs" />
     <Compile Include="Triggers\Contracts\IInsultTrigger.cs" />
     <Compile Include="Triggers\Contracts\IAddQuoteTrigger.cs" />
+    <Compile Include="Triggers\GoogleImageSearchTrigger.cs" />
+    <Compile Include="Triggers\Contracts\IGoogleImageSearchTrigger.cs" />
     <Compile Include="Triggers\InsultTrigger.cs" />
     <Compile Include="Triggers\EchoTrigger.cs" />
     <Compile Include="Triggers\Contracts\ITakePointTrigger.cs" />

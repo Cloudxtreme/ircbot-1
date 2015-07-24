@@ -54,6 +54,7 @@ namespace IrcBot.Client
                 .RegisterType<IDonLoudScreamTrigger, DonLoudScreamTrigger>()
                 .RegisterType<IDonScreamTrigger, DonScreamTrigger>()
                 .RegisterType<IEchoTrigger, EchoTrigger>()
+                .RegisterType<IGoogleImageSearchTrigger, GoogleImageSearchTrigger>()
                 .RegisterType<IInsultTrigger, InsultTrigger>()
                 .RegisterType<IPointsTrigger, PointsTrigger>()
                 .RegisterType<IQuoteStatsTrigger, QuoteStatsTrigger>()
@@ -83,6 +84,7 @@ namespace IrcBot.Client
                 { "!SCREAM", typeof (DonLoudScreamTrigger) },
                 { "!scream", typeof (DonScreamTrigger) },
                 { "!echo", typeof (EchoTrigger) },
+                { "!gimage", typeof (GoogleImageSearchTrigger) },
                 { "!insult", typeof (InsultTrigger) },
                 { "!points", typeof (PointsTrigger) },
                 { "!quotestats", typeof (QuoteStatsTrigger) },

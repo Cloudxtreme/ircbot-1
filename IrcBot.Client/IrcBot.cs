@@ -124,6 +124,11 @@ namespace IrcBot.Client
 
             var message = ircEventArgs.Data.Message;
 
+            if (message == null)
+            {
+                return;
+            }
+
             messageService.Insert(new Message
             {
                 Content = message,

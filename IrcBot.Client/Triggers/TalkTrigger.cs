@@ -28,7 +28,12 @@ namespace IrcBot.Client.Triggers
             var nick = triggerArgs[0];
 
             var markovChain = new MarkovChain<string>();
-            var messages = _messageService.Query(x => x.Nick == nick).Select();
+
+            int totalCount;
+            var messages = _messageService
+                .Query(x => x.Nick == nick)
+                .OrderBy(o => o.OrderByDescending(x => x.Created))
+                .SelectPage(1, 500, out totalCount);
 
             foreach (var message in messages)
             {
